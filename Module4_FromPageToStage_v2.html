@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 — MTC Production Processes: From Page to Stage</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f0eb;
+    --warm-white: #faf7f2;
+    --cream: #e8e0d4;
+    --mtc-blue: #1a2a4a;
+    --mtc-gold: #c8a45c;
+    --mtc-copper: #b87333;
+    --stage-red: #8b2500;
+    --muted-sage: #7a8b6f;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-light: #888;
+    --divider: #d4cdc4;
+    --unimelb: #004EA8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--text-primary);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 3rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 50vw;
+    height: 50vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 164, 92, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .module-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .module-label::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--mtc-copper);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--mtc-blue);
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--mtc-copper);
+  }
+
+  .hero-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .content-wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 4rem;
+  }
+
+  /* ─── SECTION HEADING ─── */
+  .section-marker {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-marker::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--mtc-copper);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--mtc-blue);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+
+  /* ─── PROSE ─── */
+  .prose {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-primary);
+  }
+
+  .prose p {
+    margin-bottom: 1.3rem;
+  }
+
+  .prose p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ─── PULL QUOTE ─── */
+  .pull-quote {
+    margin: 2.5rem 0;
+    padding: 2rem 0 2rem 2rem;
+    border-left: 3px solid var(--mtc-gold);
+    position: relative;
+  }
+
+  .pull-quote blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--mtc-blue);
+  }
+
+  .pull-quote .attribution {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-light);
+    margin-top: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── DIVIDER ─── */
+  .section-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--divider);
+    margin: 3rem 0;
+  }
+
+  /* ─── PAUSE & CONSIDER (interactive intervention) ─── */
+  .pause-consider {
+    margin: 2.5rem 0;
+    padding: 1.8rem 2rem;
+    background: linear-gradient(135deg, rgba(26, 42, 74, 0.04) 0%, rgba(200, 164, 92, 0.06) 100%);
+    border-left: 3px solid var(--mtc-copper);
+    border-radius: 0 4px 4px 0;
+    position: relative;
+  }
+
+  .pause-consider::before {
+    content: 'Pause & Consider';
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    display: block;
+    margin-bottom: 0.9rem;
+  }
+
+  .pause-consider p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--mtc-blue);
+    font-weight: 400;
+  }
+
+  .pause-consider p + p {
+    margin-top: 0.7rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  /* ─── REHEARSAL ROADMAP ─── */
+  .roadmap {
+    margin: 3rem 0;
+    padding: 2.5rem 0;
+  }
+
+  .roadmap-intro {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    max-width: 620px;
+  }
+
+  .roadmap-track {
+    position: relative;
+    padding-left: 2.8rem;
+  }
+
+  /* The vertical line */
+  .roadmap-track::before {
+    content: '';
+    position: absolute;
+    left: 0.55rem;
+    top: 0.6rem;
+    bottom: 0.6rem;
+    width: 2px;
+    background: linear-gradient(to bottom,
+      var(--mtc-gold) 0%,
+      var(--mtc-copper) 40%,
+      var(--stage-red) 100%
+    );
+  }
+
+  .roadmap-stage {
+    position: relative;
+    margin-bottom: 2rem;
+    padding: 1.4rem 1.6rem;
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .roadmap-stage:last-child {
+    margin-bottom: 0;
+  }
+
+  .roadmap-stage:hover {
+    border-color: var(--mtc-gold);
+    box-shadow: 0 2px 12px rgba(200, 164, 92, 0.1);
+  }
+
+  /* The dot on the track */
+  .roadmap-stage::before {
+    content: '';
+    position: absolute;
+    left: -2.25rem;
+    top: 1.6rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--mtc-gold);
+    background: var(--paper);
+    z-index: 1;
+  }
+
+  .roadmap-stage:first-child::before {
+    border-color: var(--mtc-gold);
+    background: var(--mtc-gold);
+  }
+
+  .roadmap-stage:last-child::before {
+    border-color: var(--stage-red);
+    background: var(--stage-red);
+  }
+
+  .roadmap-stage-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.5rem;
+  }
+
+  .roadmap-stage h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--mtc-blue);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .roadmap-stage p {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  .roadmap-stage .practitioner-voice {
+    margin-top: 0.8rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--divider);
+    font-size: 0.82rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text-light);
+  }
+
+  .roadmap-stage .practitioner-voice strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  /* ─── THINKING PROMPT CARDS (replacing concept cards) ─── */
+  .thinking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .thinking-card {
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    border-radius: 4px;
+    padding: 1.8rem;
+    transition: border-color 0.3s ease;
+    position: relative;
+  }
+
+  .thinking-card:hover {
+    border-color: var(--mtc-copper);
+  }
+
+  .thinking-card-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.7rem;
+  }
+
+  .thinking-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--mtc-blue);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .thinking-card .scenario {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 0.9rem;
+  }
+
+  .thinking-card .prompt {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--mtc-blue);
+    font-weight: 500;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--divider);
+  }
+
+  /* ─── BRIDGE / TRANSITION SECTION ─── */
+  .bridge {
+    background: var(--mtc-blue);
+    color: var(--warm-white);
+    padding: 3rem 2rem;
+    margin: 3rem -2rem;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bridge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background: radial-gradient(ellipse at top right, rgba(200, 164, 92, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .bridge-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 660px;
+  }
+
+  .bridge .section-marker {
+    color: var(--mtc-gold);
+  }
+
+  .bridge .section-marker::before {
+    background: var(--mtc-gold);
+  }
+
+  .bridge .section-title {
+    color: var(--warm-white);
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .bridge p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(250, 247, 242, 0.85);
+    margin-bottom: 1rem;
+  }
+
+  .bridge p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ─── ARRIVAL TASK ─── */
+  .arrival-task {
+    margin: 3rem 0;
+    padding: 2.2rem 2rem;
+    background: var(--mtc-blue);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .arrival-task::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    background: radial-gradient(ellipse at bottom right, rgba(200, 164, 92, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .arrival-task-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .arrival-task-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-gold);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .arrival-task-label::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--mtc-gold);
+  }
+
+  .arrival-task h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .arrival-task p {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: rgba(250, 247, 242, 0.85);
+    margin-bottom: 0.8rem;
+  }
+
+  .arrival-task ol {
+    list-style: none;
+    counter-reset: arrival;
+    margin: 1rem 0;
+    padding: 0;
+  }
+
+  .arrival-task ol li {
+    counter-increment: arrival;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: rgba(250, 247, 242, 0.85);
+    margin-bottom: 0.6rem;
+    padding-left: 1.8rem;
+    position: relative;
+  }
+
+  .arrival-task ol li::before {
+    content: counter(arrival);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--mtc-gold);
+    position: absolute;
+    left: 0;
+    top: 0.15rem;
+    font-weight: 700;
+  }
+
+  .arrival-task .note {
+    font-size: 0.82rem;
+    color: rgba(250, 247, 242, 0.6);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+
+  /* ─── SOURCES SECTION ─── */
+  .sources {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--divider);
+  }
+
+  .sources-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 1.8rem;
+  }
+
+  /* Book feature with cover */
+  .source-book-feature {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .source-book-cover {
+    flex-shrink: 0;
+    width: 140px;
+  }
+
+  .source-book-cover img {
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .source-book-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .source-book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--mtc-blue);
+    line-height: 1.3;
+  }
+
+  .source-book-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .source-book-author {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1rem;
+  }
+
+  .source-book-description {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+  }
+
+  .source-book-access {
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--text-light);
+    font-style: italic;
+  }
+
+  /* Detailed source references */
+  .source-details-wrapper {
+    margin-top: 0;
+  }
+
+  .source-details-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.2rem;
+  }
+
+  .source-detail-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .source-detail-heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+  }
+
+  .source-detail {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  .source-detail span.page {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-light);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero { padding: 4rem 1.5rem 2.5rem; }
+    .content-wrapper { padding: 2.5rem 1.5rem 3rem; }
+    .thinking-grid { grid-template-columns: 1fr; }
+    .bridge { margin: 2.5rem -1.5rem; padding: 2.5rem 1.5rem; }
+    .pull-quote { padding-left: 1.5rem; }
+    .roadmap-track { padding-left: 2.2rem; }
+    .roadmap-stage::before { left: -1.65rem; }
+    .source-book-feature { flex-direction: column; gap: 1.2rem; }
+    .source-book-cover { width: 110px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="module-label">Module 4</div>
+    <h1>From Page <em>to</em> Stage</h1>
+    <p class="hero-subtitle">How a written script becomes a living production through the collaborative work of directors, actors, designers, and stage managers.</p>
+  </div>
+</section>
+
+<!-- ─── MAIN CONTENT ─── -->
+<div class="content-wrapper">
+
+  <!-- Opening section -->
+  <div class="section-marker">The Rehearsal Room</div>
+  <h2 class="section-title">Theatre is made by people, together</h2>
+
+  <div class="prose">
+    <p>When you watch a finished production at MTC, what you see on stage is the result of weeks of collaborative work by dozens of people, most of whom the audience will never see. It is easy to assume that a play arrives fully formed from the mind of a single visionary, whether the playwright who wrote it or the director who staged it, but the reality is far more interesting than that. A theatre production is built collectively, through a process of shared inquiry, negotiation, and creative problem-solving that unfolds over time in a room where no single person holds all the answers.</p>
+
+    <p>The rehearsal room is where this collective work happens. It is a dedicated space, usually a large, bare room, in which the company gathers for several weeks before a production opens. What takes place there is not simply a matter of actors learning their lines and being told where to stand. It is a sustained creative process in which the director, actors, designers, stage managers, and other collaborators gradually discover, together, what this particular production of this particular play will be. The written script is the starting point, but the journey from page to stage involves hundreds of interpretive and practical decisions that no playwright can anticipate and no single person can make alone.</p>
+  </div>
+
+  <div class="pull-quote">
+    <blockquote>'I run a rehearsal room based on trust, people have to get on with what they need to do. It's collaborative and democratic. I try to be that way. It doesn't always happen. But the buck does stop with me, and that terrifies me.'</blockquote>
+    <div class="attribution">Jenny Sealey, Artistic Director of Graeae Theatre, a pioneering UK company led by deaf and disabled artists</div>
+  </div>
+
+  <!-- PAUSE & CONSIDER #1 -->
+  <div class="pause-consider">
+    <p>Sealey describes her rehearsal room as collaborative and democratic — but also says the buck stops with her, and that this terrifies her. Think about a group project you have worked on, in any context. Was there a moment when someone had to make a final call, even though the work was meant to be shared? How did that feel for the group?</p>
+    <p>Hold this tension in mind as you read on. It runs through everything that follows.</p>
+  </div>
+
+  <div class="prose">
+    <p>That tension Sealey describes, between genuine collaboration and the fact that someone must ultimately take responsibility for the finished work, sits at the heart of how professional theatre operates. The rehearsal room is also shaped by material realities: opening night has a fixed date, budgets are finite, and the production must be ready for a paying audience whether or not every creative question has been resolved. As theatre scholar Ric Knowles has observed, any creative choices made in rehearsal are bounded by the economic and commercial conditions that surround the work. Directors must balance their artistic ambitions with the practical demand to open the product on time.</p>
+
+    <p>Within those constraints, though, the best rehearsal rooms operate as genuinely collaborative creative spaces. Kate Wasserberg, an English director whose rehearsal processes have been the subject of detailed scholarly observation, describes her approach as rooted in practicality and what she calls love: an unconditional investment in the actors, the characters, and the play itself, so that performers feel free to take creative risks rather than defending safe choices. She staunchly defends even the most morally questionable characters, encouraging her actors to become their character's champion rather than their judge, because an actor who is on their character's side can access depths that self-conscious distance cannot reach.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- The director as facilitator -->
+  <div class="section-marker">Collaborative Dynamics</div>
+  <h2 class="section-title">The director as facilitator, not dictator</h2>
+
+  <div class="prose">
+    <p>One of the most common misconceptions about theatre is that the director functions like a film director: an all-powerful figure who controls every detail of what happens on stage. In practice, the relationship is much more nuanced. The director's job is closer to that of a chairperson or facilitator, someone who sets a tone and direction for the work, curates the ideas that emerge from the room, and makes final decisions when the company reaches a fork in the road, but who relies fundamentally on the expertise, instincts, and creative contributions of everyone else in the process.</p>
+
+    <p>Michelle Terry, Artistic Director of Shakespeare's Globe in London, has argued that the traditional rehearsal model, where the focus and point of view come from one end of the room and rest on the director's shoulders alone, does not always serve the work or the people making it. Terry advocates for shifting the focus back onto the play itself, so that the script becomes the shared reference point around which all contributions orbit, rather than the director's interpretation becoming the only lens through which everyone else must work. The strongest idea in the telling of the story should be the one that is pursued, regardless of who in the room it comes from.</p>
+
+    <p>Ivo van Hove, the Belgian director who leads Internationaal Theater Amsterdam and is one of the most influential theatre directors working today, likens his preparation to a small backpack. He carries ideas with him as a safety net, something to draw on if the company gets into trouble or if a question arises, but not as a predetermined blueprint to impose on the room. For Van Hove, the director who walks in needing to display that they are the boss of the production is missing the point. He prefers to put the team forward and position himself as part of it, because a team gives warmth, loyalty, and security, and within that security, genuine creative risk becomes possible.</p>
+
+    <p>This does not mean that rehearsal rooms are leaderless or chaotic. Directors bring extensive preparation, a deep understanding of the text, and a clear sense of the world they want the production to inhabit. But the most effective directors seem to share a willingness to be surprised by what their collaborators bring, and a recognition that the actors, designers, and stage managers each possess forms of knowledge and creative intelligence that the director alone cannot replicate. As Wasserberg puts it: being genuinely curious about what other people think is important, as is believing that the work will be better if you use the talent and ability in the room.</p>
+  </div>
+
+  <!-- PAUSE & CONSIDER #2 -->
+  <div class="pause-consider">
+    <p>Van Hove talks about his preparation as a "small backpack" — ideas to draw on, not a blueprint to impose. Think about the difference between those two approaches: arriving with a plan to execute, versus arriving with resources to offer. Where have you seen each approach work (or fail) in your own experience of group work, sport, music, or any collaborative endeavour?</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Rough drafts toward a form -->
+  <div class="section-marker">Process</div>
+  <h2 class="section-title">Rough drafts toward a finished form</h2>
+
+  <div class="prose">
+    <p>A theatre production does not arrive fully formed on the first day. It moves through stages, much like drafting an essay or developing a research project, where early work is deliberately rough and exploratory, and precision comes later. Matthew Xia, an English director and former Artistic Director of the Manchester Royal Exchange's Exchange Studio, compares the process to a swimming pool: you walk from the shallow end to the deep end over the course of several weeks, honing as you go. What begins as a badly drawn circle on a piece of paper ends up, ideally, looking like something far more accomplished.</p>
+
+    <p>In the first days of rehearsal, many directors avoid locking anything in. They read through the play quickly, not to produce a polished performance, but to give the whole company a shared sense of the story from beginning to end. Wasserberg describes wanting to solve all the practical problems first, working through the play quickly in the opening week to establish a rough physical staging, getting everyone on their feet by the afternoon of the second day, then returning to deepen and detail the work in subsequent weeks. She calls each pass through a scene a new "draft", deliberately borrowing the language of writing to signal that nothing is fixed yet and everything can be reworked. Van Hove begins with a single reading, an introduction to the visual concept, and a general sense of the world the company will inhabit, then starts working chronologically through the scenes from the very next day, because he wants the rehearsal process to mirror the unfolding quality of life itself, where you know where you have to be but not what will happen when you get there.</p>
+
+    <p>As the weeks progress, the work moves from content to form: from understanding what the play is about and what the characters need, to shaping how all of that will be communicated to an audience through specific physical choices, vocal qualities, design elements, and the overall rhythm and pace of the production. Robert Marsden, the theatre scholar whose research underpins this page, describes a progression through several stages: early stumble-throughs, where the company pieces scenes together roughly and unevenly; stagger-throughs, which aim for greater continuity; and finally full run-throughs, where the entire play is performed in real time with as many production elements as possible in place. Each stage builds the actors' confidence and reveals what still needs attention before an audience arrives. The important thing, as Kirstie Davis, a director working in English regional theatre, notes, is not to push for perfection too early: if the actors are doing nothing but battling against something overcomplicated, there is no point, and she will throw it away and simplify.</p>
+  </div>
+
+  <!-- ─── REHEARSAL ROADMAP ─── -->
+  <div class="roadmap">
+    <div class="section-marker">Roadmap</div>
+    <h2 class="section-title">The journey from first read to opening night</h2>
+    <p class="roadmap-intro">The following is a simplified map of how a typical professional rehearsal process unfolds. Not every company follows this sequence exactly — directors adapt to their own methods, the needs of the play, and the constraints of the production — but the general arc from exploration to precision is remarkably consistent.</p>
+
+    <div class="roadmap-track">
+
+      <div class="roadmap-stage">
+        <div class="roadmap-stage-label">Week 1 · Days 1–2</div>
+        <h4>First read-through and table work</h4>
+        <p>The full company gathers for the first time. The play is read aloud — not performed, but spoken — to give everyone a shared sense of the whole story. The director may introduce the design concept, and the company discusses the world of the play: its setting, themes, relationships, and questions.</p>
+        <div class="practitioner-voice"><strong>Van Hove:</strong> A single reading, an introduction to the visual world, and then straight into working the scenes from the next day — because life unfolds, and so should rehearsal.</div>
+      </div>
+
+      <div class="roadmap-stage">
+        <div class="roadmap-stage-label">Week 1 · Days 3–5</div>
+        <h4>On your feet: rough blocking</h4>
+        <p>Actors move from the table to the rehearsal floor. The director works through scenes quickly, establishing a rough physical shape — who enters where, who sits, who moves — without worrying about polish. The goal is to solve practical problems and give everyone a physical sense of the play's geography.</p>
+        <div class="practitioner-voice"><strong>Wasserberg:</strong> Get everyone on their feet by the afternoon of day two. Solve the practical problems first. Each pass through a scene is a new "draft" — nothing is fixed yet.</div>
+      </div>
+
+      <div class="roadmap-stage">
+        <div class="roadmap-stage-label">Weeks 2–3</div>
+        <h4>Deepening: scene work and character exploration</h4>
+        <p>The company returns to each scene in detail. Actors explore their characters' motivations, relationships, and choices. The director asks questions, tests alternatives, and refines the staging. Design elements — costumes, props, sound — begin to be integrated, ideally with designers present in the room.</p>
+      </div>
+
+      <div class="roadmap-stage">
+        <div class="roadmap-stage-label">Week 3–4</div>
+        <h4>Stumble-throughs and stagger-throughs</h4>
+        <p>The company begins running larger sections of the play, then the whole play, without stopping. Early attempts — stumble-throughs — are rough and uneven; actors may forget lines or miss cues. Stagger-throughs aim for greater continuity. Each run reveals what works and what still needs attention.</p>
+        <div class="practitioner-voice"><strong>Xia:</strong> You walk from the shallow end of the pool to the deep end. What begins as a badly drawn circle ends up looking like something far more accomplished.</div>
+      </div>
+
+      <div class="roadmap-stage">
+        <div class="roadmap-stage-label">Final week</div>
+        <h4>Technical and dress rehearsals</h4>
+        <p>The production moves from the rehearsal room into the theatre itself. Lighting, sound, set changes, and costumes are integrated in technical rehearsals. Dress rehearsals simulate performance conditions. The director shapes the overall rhythm, pace, and flow of the production as a unified whole.</p>
+        <div class="practitioner-voice"><strong>Davis:</strong> If the actors are battling against something overcomplicated, throw it away and simplify. The production must be ready to meet its audience.</div>
+      </div>
+
+      <div class="roadmap-stage">
+        <div class="roadmap-stage-label">Opening</div>
+        <h4>The audience arrives</h4>
+        <p>The work meets the public for the first time. Everything the company has built — every choice negotiated, tested, revised, and refined over weeks of collaborative work — is now experienced live, in real time, by an audience whose presence changes everything.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAUSE & CONSIDER #3 -->
+  <div class="pause-consider">
+    <p>Look at the roadmap above. Notice how the process moves from deliberate roughness to increasing precision — and how each stage has a different purpose. When you attend your first MTC production later this semester, what you see on stage will be the product of this entire journey. Is there a stage in this process that surprises you, or that works differently from how you imagined theatre was made?</p>
+  </div>
+
+  <!-- Thinking prompt cards (replacing concept cards) -->
+  <div class="thinking-grid">
+    <div class="thinking-card">
+      <div class="thinking-card-label">Thinking Prompt</div>
+      <h3>Who owns the idea?</h3>
+      <div class="scenario">In rehearsal for <em>Around the World in 80 Days</em>, director Sarah Heskins gave four pairs of actors fifteen minutes to come up with their own elephant using a kit of props and costumes. One group discovered that an old Inverness cape could be twisted to make ears and a trunk. It became the production's solution.</div>
+      <div class="prompt">Heskins says that ideally, the person who invents something does not own it — they contribute it to the collective endeavour. What does that require of the people in the room? What would make it difficult?</div>
+    </div>
+    <div class="thinking-card">
+      <div class="thinking-card-label">Thinking Prompt</div>
+      <h3>When less preparation is more</h3>
+      <div class="scenario">Van Hove prepares a "small backpack" of ideas. Wasserberg arrives with questions rather than answers. Both are highly successful directors, and both describe deliberately holding back from imposing a fixed plan.</div>
+      <div class="prompt">Can you think of a context in your own life — study, work, sport, creative practice — where arriving less prepared actually produced a better outcome? What made that possible?</div>
+    </div>
+    <div class="thinking-card">
+      <div class="thinking-card-label">Thinking Prompt</div>
+      <h3>The sound you don't see</h3>
+      <div class="scenario">In Katie Mitchell's <em>Women of Troy</em>, sound designer Gareth Fry built the sounds of a city being destroyed — people dying, buildings collapsing — and played them in the rehearsal room while the actors performed. The offstage world became something the actors could react to physically, not just imagine.</div>
+      <div class="prompt">Think about a film or show where the sound shaped your emotional response as powerfully as anything you could see. What was the sound doing that the image alone could not?</div>
+    </div>
+    <div class="thinking-card">
+      <div class="thinking-card-label">Thinking Prompt</div>
+      <h3>A small, precise detail</h3>
+      <div class="scenario">Set designer Max Jones suggested that an actor count out bullets during a quiet conversation in <em>Close Quarters</em>. The visual image of an implement of death held casually during a discussion about soldiers' careers amplified the psychological tension in a way that dialogue alone could not.</div>
+      <div class="prompt">What is it about the contrast — the ordinariness of the action versus the weight of the object — that creates tension? Can you think of an equivalent moment from something you have watched?</div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Design integration -->
+  <div class="section-marker">Scenography</div>
+  <h2 class="section-title">Designers in the room</h2>
+
+  <div class="prose">
+    <p>One of the less visible but most important aspects of collaboration in professional theatre is the relationship between what happens in the rehearsal room and the work of the design team. Set designers, costume designers, lighting designers, and sound designers all contribute to the world the audience eventually sees and hears, and the quality of their integration into the rehearsal process can make the difference between a production that feels seamless and one where the design feels imposed from outside.</p>
+
+    <p>Gareth Fry, a leading sound designer who has worked extensively at the National Theatre in London, including on Katie Mitchell's acclaimed production of <em>Women of Troy</em> (2007), argues that sound design often ends up feeling tacked on if it is introduced too late in the process, after the actors have already established their rhythms and dynamics without it. By developing the sound design in the rehearsal room as the actors develop their performances, the two can be created together in a relationship of genuine exchange, rather than one being fitted awkwardly around the other. In <em>Women of Troy</em>, the offstage world the characters hear is their entire city being torn apart, people dying and being shipped off as slaves. Having those sounds present in rehearsals allowed the actors to feel that external pressure viscerally and respond to it in real time, rather than having to imagine it and then adjust when the sound arrived weeks later in the technical rehearsal.</p>
+
+    <p>The same principle applies to set and costume. Max Jones, a set designer who works regularly in UK subsidised theatre, describes a moment during rehearsals for a production called <em>Close Quarters</em> in which he suggested that an actor count out bullets during a quiet conversation scene. The visual image of an implement of death held casually during a discussion about young soldiers' careers and lives amplified the psychological tension of the moment in a way that neither the dialogue nor the staging alone could achieve. Jones describes this as the designer's language: finding visual signifiers, sometimes on a small and precise scale, that amplify the psychology of a moment. That kind of creative contribution is possible only when designers are present in the room and treated as full creative collaborators, not service providers who deliver a finished set on the day of the technical rehearsal.</p>
+
+    <p>Sarah Heskins, who served as Artistic Director of the New Vic Theatre in Staffordshire, takes this collaborative ethos further still. During rehearsals for <em>Around the World in 80 Days</em>, when the script called for a journey by elephant, the designer provided a kit of props and costumes for the actors to experiment with, and Heskins gave four pairs of actors fifteen minutes to come back with their own elephant. One group discovered that an old Inverness cape could be twisted and turned to make ears and a trunk, and the result was so striking in its simplicity that it became the solution for the production. As Heskins reflects, ideally everything in the creative process should work like that: through shared offers, where the person who invents something does not necessarily own it, but contributes it to the collective endeavour.</p>
+  </div>
+
+  <!-- Bridge section -->
+  <div class="bridge">
+    <div class="bridge-inner">
+      <div class="section-marker">Connecting to MTC</div>
+      <h2 class="section-title">Watching the videos this week</h2>
+      <p>The videos for this module introduce you to MTC practitioners who do exactly the work described on this page. You will hear from directors, a playwright, actors, set designers, and lighting designers, each describing their part in the collaborative process of bringing a production from page to stage.</p>
+      <p>As you watch, pay attention to how each person talks about their relationship to the others in the process. Notice what they say about when and how decisions get made, who has input, and what happens when things do not go as planned. The ideas on this page — and the rehearsal roadmap above — should help you listen with sharper ears and notice things you might otherwise have missed.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Carrying forward -->
+  <div class="section-marker">Carrying Forward</div>
+  <h2 class="section-title">What to listen for in this week's videos</h2>
+
+  <div class="prose">
+    <p>Understanding theatre as a collaborative art form changes the way you watch it. When you attend MTC productions live later this semester, you will not simply be watching actors perform a script. You will be watching the visible surface of a long, complex, collaborative process in which dozens of creative decisions have been negotiated, tested, revised, and refined. The set you see, the lighting that shapes the mood of each scene, the way an actor pauses before a line or crosses the stage at a particular moment: none of these are accidental. Each is the product of collaborative work in a rehearsal room, shaped by the contributions of people whose names you may only glimpse in the programme.</p>
+  </div>
+
+  <!-- PAUSE & CONSIDER #4 — video-directed -->
+  <div class="pause-consider">
+    <p>As you watch this week's MTC practitioner videos, listen for echoes of what you have read here. When a director, designer, or actor describes how they work, try to place them on the rehearsal roadmap above. At what stage of the process are they describing their contribution? And notice the language they use about collaboration: do they talk about their work as something they do alone, or as something that emerges from the room?</p>
+  </div>
+
+  <!-- Sources section -->
+  <div class="sources">
+    <div class="sources-label">Sources</div>
+
+    <div class="source-book-feature">
+      <div class="source-book-cover">
+        <img src="marsden-cover.png" alt="Cover of Inside the Rehearsal Room by Robert Marsden, featuring a red door opening onto a colourful interior against a yellow background">
+      </div>
+      <div class="source-book-info">
+        <div class="source-book-title">Inside the Rehearsal Room</div>
+        <div class="source-book-subtitle">Process, Collaboration and Decision-Making</div>
+        <div class="source-book-author">Robert Marsden</div>
+        <p class="source-book-description">All of the ideas and practitioner voices on this page are drawn from Marsden's detailed study of how professional directors, actors, and designers work together to build a production. The book is based on extensive interviews and first-hand observation of rehearsal processes across UK theatre.</p>
+        <p class="source-book-access">London: Methuen Drama, 2022. Available digitally through the University of Melbourne Library via Bloomsbury Collections.</p>
+      </div>
+    </div>
+
+    <div class="source-details-wrapper">
+      <div class="source-details-label">Where to find what's on this page</div>
+
+      <div class="source-detail-group">
+        <div class="source-detail-heading">Theatre is made by people, together</div>
+        <div class="source-detail">
+          Jenny Sealey on trust and collaboration <span class="page">p. 89</span> · Ric Knowles on economic conditions shaping creative choices <span class="page">pp. 89–90</span> · Kate Wasserberg on practicality, love, and defending characters <span class="page">pp. 92–93</span>
+        </div>
+      </div>
+
+      <div class="source-detail-group">
+        <div class="source-detail-heading">The director as facilitator, not dictator</div>
+        <div class="source-detail">
+          Michelle Terry on shifting focus onto the play <span class="page">p. 94</span> · Ivo van Hove on the backpack and the team <span class="page">pp. 95, 100</span> · Wasserberg on genuine curiosity and using the room's talent <span class="page">pp. 94–95</span>
+        </div>
+      </div>
+
+      <div class="source-detail-group">
+        <div class="source-detail-heading">Rough drafts toward a finished form</div>
+        <div class="source-detail">
+          Matthew Xia on the swimming pool analogy <span class="page">p. 123</span> · Wasserberg on solving practical problems in week one, drafting scenes, and getting on feet by day two <span class="page">pp. 99–102</span> · Van Hove on beginning chronologically <span class="page">pp. 98–99</span> · Kirstie Davis on simplifying when actors struggle <span class="page">p. 140</span> · Marsden's framework of stumble-throughs, stagger-throughs, and run-throughs <span class="page">pp. 140–141</span>
+        </div>
+      </div>
+
+      <div class="source-detail-group">
+        <div class="source-detail-heading">Designers in the room</div>
+        <div class="source-detail">
+          Gareth Fry on sound design integration and <em>Women of Troy</em> <span class="page">pp. 116–117, 137</span> · Max Jones on visual signifiers and the bullet-counting moment in <em>Close Quarters</em> <span class="page">pp. 136–137</span> · Sarah Heskins on the elephant in <em>Around the World in 80 Days</em> <span class="page">pp. 117–118</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
