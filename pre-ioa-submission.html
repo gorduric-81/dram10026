@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-IOA Submission — DRAM10026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f0eb;
+    --warm-white: #faf7f2;
+    --cream: #e8e0d4;
+    --mtc-blue: #1a2a4a;
+    --mtc-gold: #c8a45c;
+    --mtc-copper: #b87333;
+    --stage-red: #8b2500;
+    --muted-sage: #7a8b6f;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-light: #888;
+    --divider: #d4cdc4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--text-primary);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 36vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4.5rem 3rem 3rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 164, 92, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--mtc-copper);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4.8vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--mtc-blue);
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--mtc-copper);
+  }
+
+  .hero-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 620px;
+    line-height: 1.6;
+  }
+
+  /* ─── META BAR ─── */
+  .meta-bar {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--divider);
+    padding: 1.2rem 3rem;
+  }
+
+  .meta-bar-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .meta-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+  }
+
+  .meta-value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--mtc-blue);
+    font-weight: 500;
+  }
+
+  /* ─── CONTENT WRAPPER ─── */
+  .content-wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 4rem;
+  }
+
+  /* ─── SECTION HEADINGS ─── */
+  .section-marker {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-marker::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--mtc-copper);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--mtc-blue);
+    margin-bottom: 1.4rem;
+    line-height: 1.3;
+  }
+
+  /* ─── PROSE ─── */
+  .prose {
+    font-size: 1rem;
+    line-height: 1.78;
+    color: var(--text-primary);
+  }
+
+  .prose p {
+    margin-bottom: 1.3rem;
+  }
+
+  .prose p:last-child {
+    margin-bottom: 0;
+  }
+
+  .prose strong {
+    color: var(--mtc-blue);
+    font-weight: 600;
+  }
+
+  .prose em {
+    font-style: italic;
+    color: var(--text-primary);
+  }
+
+  /* ─── OPENING PARAGRAPH (lift) ─── */
+  .lede {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    line-height: 1.55;
+    color: var(--mtc-blue);
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    padding-bottom: 1.8rem;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  /* ─── DIVIDER ─── */
+  .section-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--divider);
+    margin: 3rem 0;
+  }
+
+  /* ─── KEY POINT BOX ─── */
+  .key-point {
+    margin: 2.2rem 0;
+    padding: 1.6rem 1.8rem;
+    background: linear-gradient(135deg, rgba(26, 42, 74, 0.04) 0%, rgba(200, 164, 92, 0.06) 100%);
+    border-left: 3px solid var(--mtc-gold);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .key-point-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.7rem;
+  }
+
+  .key-point p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    margin-bottom: 0;
+  }
+
+  /* ─── FOCUS AREA LIST ─── */
+  .focus-areas {
+    margin: 1.6rem 0 0.5rem;
+    padding: 1.6rem 1.8rem;
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    border-radius: 4px;
+  }
+
+  .focus-areas-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1rem;
+  }
+
+  .focus-areas ol {
+    list-style: none;
+    counter-reset: focus;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem 1.8rem;
+  }
+
+  .focus-areas ol li {
+    counter-increment: focus;
+    padding-left: 2rem;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  .focus-areas ol li::before {
+    content: counter(focus, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.05rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--mtc-copper);
+    font-weight: 700;
+  }
+
+  /* ─── CRITICS LIST ─── */
+  .critics-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1rem 0 0.4rem;
+  }
+
+  .critic-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.9rem;
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    border-radius: 20px;
+    color: var(--mtc-blue);
+    font-weight: 500;
+  }
+
+  /* ─── CLOSING NOTE ─── */
+  .closing-note {
+    margin-top: 3rem;
+    padding: 1.8rem 0 0;
+    border-top: 1px solid var(--divider);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.02rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .hero {
+      padding: 3rem 1.5rem 2.5rem;
+    }
+    .meta-bar {
+      padding: 1rem 1.5rem;
+    }
+    .meta-bar-inner {
+      gap: 1.5rem;
+    }
+    .content-wrapper {
+      padding: 2.5rem 1.5rem 3rem;
+    }
+    .focus-areas ol {
+      grid-template-columns: 1fr;
+    }
+    .lede {
+      font-size: 1.08rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">Assessment Task 2 · Component 1 of 3</div>
+    <h1 class="hero-title">Pre-IOA <em>Submission</em></h1>
+    <p class="hero-subtitle">A 600-word short-form review on your assigned focus area, considered comparatively across the two MTC productions.</p>
+  </div>
+</section>
+
+<!-- ─── META BAR ─── -->
+<div class="meta-bar">
+  <div class="meta-bar-inner">
+    <div class="meta-item">
+      <span class="meta-label">Length</span>
+      <span class="meta-value">600 words (ceiling)</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Due</span>
+      <span class="meta-value">25 May</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Form</span>
+      <span class="meta-value">Continuous prose</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Read by</span>
+      <span class="meta-value">Your tutors</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONTENT ─── -->
+<main class="content-wrapper">
+
+  <p class="lede">This submission is the written counterpart to your five minutes in the Interactive Oral Assessment — a piece of considered theatre criticism on one particular dimension of two productions.</p>
+
+  <!-- SECTION 1 -->
+  <div class="section-marker">What this is</div>
+  <h2 class="section-title">A short-form review, not working notes</h2>
+
+  <div class="prose">
+    <p>What you submit here is a 600-word piece of critical writing on your allotted focus area, examined comparatively across both MTC productions. Think of it as the kind of review a critic might publish in a magazine or on a serious arts site: an argued, evidenced response to one specific dimension of two pieces of theatre.</p>
+
+    <p>This is not a draft and it is not preparation notes. We are expecting writing that has been thought through and worked over, with a clear position and the evidence to support it. The five minutes you spend speaking in the IOA will build on this writing — extending it, testing it against your peers, opening it up to questions — so the stronger the written submission, the more substantial the conversation it makes possible.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 2 -->
+  <div class="section-marker">Before you begin</div>
+  <h2 class="section-title">Name your focus area at the top</h2>
+
+  <div class="prose">
+    <p>Your tutor has allotted you one focus area to write on. Name it as the first line of your submission so your tutor sees it immediately and arrives at the IOA already oriented to what you've been working with.</p>
+  </div>
+
+  <div class="focus-areas">
+    <div class="focus-areas-label">The eight focus areas</div>
+    <ol>
+      <li>Performances</li>
+      <li>Impact</li>
+      <li>Set design</li>
+      <li>Costume design</li>
+      <li>Lighting design</li>
+      <li>Sound design and composition</li>
+      <li>Direction and interpretation of the text</li>
+      <li>Relevance, originality and theatricality</li>
+    </ol>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 3 -->
+  <div class="section-marker">What the review should do</div>
+  <h2 class="section-title">Make an argument, anchored in specifics</h2>
+
+  <div class="prose">
+    <p>Your task is to make an argument about how your focus area operated across the two productions. Where did each show succeed in this dimension and where did it fall short? Where were the two productions doing comparable work and where did they part ways? You are not describing what you saw; you are evaluating it — taking a position and defending it with specific evidence drawn from particular moments, choices, and effects.</p>
+
+    <p>Be concrete. The strongest theatre criticism moves between the specific and the general: a single observation about a lighting cue, a costume choice, a vocal delivery, an entrance, becomes the anchor for a larger claim about what the production is trying to do and whether it succeeds. General praise or general complaint does very little work. The closer your writing stays to actual moments in the productions, the more convincing your argument becomes.</p>
+
+    <p>You will need some orientation for the reader — what each play is, who made this production, when and where it sits — but weave this in as the writing requires it rather than front-loading a synopsis. Assume your reader is informed but hasn't necessarily seen these particular productions. Names of key creatives relevant to your focus area should appear naturally where you discuss their work.</p>
+  </div>
+
+  <div class="key-point">
+    <div class="key-point-label">A working principle</div>
+    <p>If a sentence could be lifted out and applied to any production of anything, it is not yet doing the work of criticism. Push toward the observation only these two productions could prompt.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 4 -->
+  <div class="section-marker">Register and form</div>
+  <h2 class="section-title">Write as a critic, not an essayist</h2>
+
+  <div class="prose">
+    <p>Write in continuous prose, not dot points. Aim for the tone of serious arts criticism rather than academic essay-writing: direct, evaluative, willing to make judgements, attentive to language. Avoid the over-formality of student writing trying to sound clever and the looseness of personal blog-style response in equal measure.</p>
+
+    <p>Before you begin, read a few pieces of professional theatre criticism so the register sits in your ear. The following Melbourne and Australian critics are worth reading for the way they write:</p>
+
+    <div class="critics-list">
+      <span class="critic-tag">Cassie Tongue</span>
+      <span class="critic-tag">Alison Croggon</span>
+      <span class="critic-tag">Andrew Fuhrmann</span>
+      <span class="critic-tag">Tim Byrne</span>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 5 -->
+  <div class="section-marker">On length</div>
+  <h2 class="section-title">600 words is the ceiling, not the target</h2>
+
+  <div class="prose">
+    <p>A tight 500-word review with a sharpened argument is stronger than 600 words that pad out to the limit. What we are looking for is precision of attention and clarity of judgement, not volume. Cut anything that is not earning its place.</p>
+  </div>
+
+  <p class="closing-note">Your submission is the considered version of your thinking. The IOA is where you bring that thinking into a room with others and let it move.</p>
+
+</main>
+
+</body>
+</html>
