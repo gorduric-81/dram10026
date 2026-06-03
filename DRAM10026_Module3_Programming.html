@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programming a Season at MTC</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f0eb;
+    --warm-white: #faf7f2;
+    --cream: #e8e0d4;
+    --mtc-blue: #1a2a4a;
+    --mtc-gold: #c8a45c;
+    --mtc-copper: #b87333;
+    --stage-red: #8b2500;
+    --muted-sage: #7a8b6f;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-light: #888;
+    --divider: #d4cdc4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--text-primary);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 164, 92, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--mtc-blue);
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+
+  .hero-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin-top: 1.5rem;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    padding: 5rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--mtc-blue);
+    line-height: 1.2;
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--mtc-copper);
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    max-width: 720px;
+  }
+
+  .body-text p {
+    margin-bottom: 1.5rem;
+  }
+
+  .body-text strong {
+    color: var(--mtc-blue);
+  }
+
+  /* ─── TENSION CARDS ─── */
+  .tension-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .tension-card {
+    padding: 2rem;
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    position: relative;
+  }
+
+  .tension-card.dark {
+    background: var(--mtc-blue);
+    border-color: var(--mtc-blue);
+    color: var(--paper);
+  }
+
+  .tension-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.75rem;
+  }
+
+  .tension-card.dark .tension-label {
+    color: var(--mtc-gold);
+  }
+
+  .tension-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--mtc-blue);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .tension-card.dark .tension-title {
+    color: var(--paper);
+  }
+
+  .tension-body {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .tension-card.dark .tension-body {
+    color: rgba(245, 240, 235, 0.75);
+  }
+
+  /* ─── ROLE CARDS (3-col) ─── */
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .role-card {
+    padding: 1.5rem;
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    transition: all 0.3s ease;
+  }
+
+  .role-card:hover {
+    border-color: var(--mtc-copper);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .role-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--mtc-copper);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .role-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--mtc-blue);
+    margin-bottom: 0.4rem;
+  }
+
+  .role-desc {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* ─── BLOCKQUOTE ─── */
+  .framework-quote {
+    margin: 2.5rem 0;
+    padding: 2.5rem;
+    background: var(--warm-white);
+    border-left: 4px solid var(--mtc-copper);
+    position: relative;
+  }
+
+  .framework-quote::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--mtc-copper);
+    opacity: 0.3;
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    line-height: 1;
+  }
+
+  .quote-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1rem;
+  }
+
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.75;
+    font-style: italic;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .quote-attribution {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+  }
+
+  /* ─── PRIORITY LIST ─── */
+  .priority-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+
+  .priority-list li {
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(212, 205, 196, 0.4);
+  }
+
+  .priority-list li:last-child {
+    border-bottom: none;
+  }
+
+  .priority-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    width: 6px;
+    height: 6px;
+    background: var(--mtc-copper);
+    border-radius: 50%;
+  }
+
+  /* ─── SPECTRUM BAR ─── */
+  .spectrum-wrap {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+  }
+
+  .spectrum-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1.25rem;
+  }
+
+  .spectrum-bar {
+    height: 6px;
+    background: linear-gradient(to right, var(--mtc-blue), var(--mtc-copper), var(--mtc-gold));
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+  }
+
+  .spectrum-ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .spectrum-caption {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 1rem;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ─── LINKS ─── */
+  .text-link {
+    color: var(--mtc-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--mtc-copper);
+    transition: all 0.2s;
+  }
+
+  .text-link:hover {
+    color: var(--mtc-copper);
+  }
+
+  /* ─── DIVIDER ─── */
+  .full-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2rem 3rem;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero { padding: 4rem 1.5rem 3rem; }
+    .section { padding: 3rem 1.5rem; }
+    .tension-grid { grid-template-columns: 1fr; }
+    .roles-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Module 3 · Programming a Season</div>
+  <h1 class="hero-title">What goes into a season of theatre?</h1>
+  <p class="hero-subtitle">Every play you see has been chosen. Behind that choice is a whole set of decisions about identity, audience, ambition, and risk — and someone whose job it is to make them.</p>
+</div>
+
+<!-- SECTION 1: THE BASIC IDEA -->
+<div class="section">
+  <div class="reveal">
+    <div class="section-label">01 — The Idea</div>
+    <h2 class="section-title">A season is not a list of plays</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="body-text reveal">
+    <p>It might seem like programming a theatre season is simply a matter of picking good plays. But when you look more closely, you start to see that a season is actually an <strong>argument</strong> — a series of decisions that, taken together, say something about what a theatre believes, who it thinks its audience is, and what it thinks theatre is for.</p>
+    <p>Those decisions involve balancing competing priorities: established classics versus new writing, large-scale spectacle versus intimate work, work that reassures versus work that challenges. No artistic director gets this balance perfectly right every year. But thinking carefully about how they make these decisions is one of the most revealing ways to understand any theatre company.</p>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- SECTION 2: TWO CORE TENSIONS -->
+<div class="section">
+  <div class="reveal">
+    <div class="section-label">02 — The Central Tension</div>
+    <h2 class="section-title">Identity versus eclecticism</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="body-text reveal">
+    <p>Every theatre has to navigate a fundamental question: should a season have a clear, distinctive identity — a consistent set of values, aesthetics, or concerns that run through every production — or should it be eclectic, offering a broad range of work that attracts as wide an audience as possible?</p>
+  </div>
+
+  <div class="tension-grid reveal">
+    <div class="tension-card">
+      <div class="tension-label">The case for identity</div>
+      <div class="tension-title">Knowing who you are</div>
+      <div class="tension-body">A theatre with a strong identity builds a loyal audience who know what to expect. It attracts artists who share its values. Over time, it can develop genuine artistic depth within a particular area — whether that's new writing, physical theatre, political work, or something else entirely.</div>
+    </div>
+    <div class="tension-card dark">
+      <div class="tension-label">The case for eclecticism</div>
+      <div class="tension-title">Serving everyone</div>
+      <div class="tension-body">A theatre that offers only one kind of work risks excluding large parts of its potential audience. In a city like Melbourne — or a country like Australia with no single national theatre for drama, but with major state companies that together carry that responsibility — there's an argument that major companies have a responsibility to be broad, to reach people across different tastes and backgrounds.</div>
+    </div>
+  </div>
+
+  <div class="body-text reveal">
+    <p>In practice, most theatres try to do both — to be recognisably themselves while still surprising their audiences. The question is how you hold those two impulses in productive tension rather than letting one collapse into the other.</p>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- SECTION 3: THE DRAMATURG AS PROGRAMMER -->
+<div class="section">
+  <div class="reveal">
+    <div class="section-label">03 — Who Makes These Decisions?</div>
+    <h2 class="section-title">The dramaturg as programmer</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="body-text reveal">
+    <p>In many theatre companies — particularly in Europe — the person most responsible for shaping a season's identity is not the artistic director alone, but the <strong>dramaturg</strong>. A dramaturg working as a programmer doesn't just select individual plays; they think about how productions speak to one another, what gaps need filling, which audiences are being served, and what kind of work the company needs to be doing next.</p>
+    <p>Think of it less like a curator choosing paintings for a gallery wall, and more like someone designing an entire exhibition: one where the arrangement and sequencing of works creates meaning that no single piece could create on its own.</p>
+  </div>
+
+  <div class="roles-grid reveal">
+    <div class="role-card">
+      <div class="role-number">01</div>
+      <div class="role-name">Building context</div>
+      <div class="role-desc">Selecting works that resonate with each other — so that seeing one production changes how you experience another.</div>
+    </div>
+    <div class="role-card">
+      <div class="role-number">02</div>
+      <div class="role-name">Developing audiences</div>
+      <div class="role-desc">Gradually introducing more challenging work alongside more accessible programming, building audience capacity over time.</div>
+    </div>
+    <div class="role-card">
+      <div class="role-number">03</div>
+      <div class="role-name">Commissioning new work</div>
+      <div class="role-desc">Identifying gaps in a national or regional repertoire and actively investing in writers and makers who can fill them.</div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="framework-quote">
+      <div class="quote-title">Karen-Maria Bille, Chief Dramaturg, Royal Danish Theatre</div>
+      <p class="quote-text">First of all, we start there — what do we want to say this year? But with twelve opening nights a year, you can't have just one concept, and we have many different audiences.</p>
+      <div class="quote-attribution">— Interviewed in Turner &amp; Behrndt, <em>Dramaturgy and Performance</em> (2008)</div>
+    </div>
+  </div>
+
+  <div class="body-text reveal">
+    <p>Bille's comment captures something important: even the most artistically driven theatre can't operate as if it has a single audience with a single set of tastes. Managing that plurality — without losing coherence — is at the heart of what programming involves.</p>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- SECTION 4: CONTEXT CHANGES EVERYTHING -->
+<div class="section">
+  <div class="reveal">
+    <div class="section-label">04 — Context Matters</div>
+    <h2 class="section-title">Different theatres, different logics</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="body-text reveal">
+    <p>What counts as good programming depends entirely on the context in which a theatre operates. A national theatre in a capital city faces different pressures to a small experimental venue. A company with a guaranteed government subsidy has different freedoms — and different obligations — to one that raises all its own funds.</p>
+    <p>Scale, venue, funding model, location, and community all shape what is possible and what is responsible. There is no universal answer to the question of what a theatre <em>should</em> programme — only answers that make sense given who it is, where it is, and who it serves.</p>
+  </div>
+
+  <div class="spectrum-wrap reveal">
+    <div class="spectrum-label">The programming spectrum</div>
+    <div class="spectrum-bar"></div>
+    <div class="spectrum-ends">
+      <span>National / broad mandate</span>
+      <span>Experimental / niche focus</span>
+    </div>
+    <p class="spectrum-caption">Large national companies like MTC operate closer to the broad end of this spectrum — but they still make active choices about where to position themselves, and those choices change over time.</p>
+  </div>
+
+  <div class="body-text reveal">
+    <p>Consider two theatres described by theatre scholar Synne Behrndt. The Royal Danish Theatre — a national institution with twelve productions per year across multiple venues — must balance experimental new work with conservative programming, separating different audience groups across different spaces. By contrast, Berlin's Sophiensaele, a small experimental venue with no fixed production budget, could operate more nimbly, but each commission required careful advance planning and intensive fundraising. Neither model is superior; they are responses to entirely different conditions.</p>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- SECTION 5: THE POLITICAL DIMENSION -->
+<div class="section">
+  <div class="reveal">
+    <div class="section-label">05 — It's Not Just Artistic</div>
+    <h2 class="section-title">Programming as a political act</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="body-text reveal">
+    <p>One of the most striking ideas to emerge from thinking about programming is that choosing what goes on a stage is never a purely aesthetic decision. Every season reflects — and reinforces — assumptions about whose stories matter, whose voices get amplified, and what kind of society a theatre imagines it is speaking to.</p>
+    <p>Thomas Frank, a dramaturg who worked across Berlin and Frankfurt, described his programming decisions as both artistic <em>and</em> political. His job, as he saw it, was to present works in ways that didn't just display them but <strong>created the conditions for them to be understood</strong> — thinking carefully about environment, presentation, and what frame the audience brought with them.</p>
+  </div>
+
+  <div class="body-text reveal">
+    <p>For a company like MTC — publicly subsidised, operating in a diverse city, with a mandate that extends well beyond commercial success — these political dimensions are always present. When MTC chooses to programme a new Australian play by a First Nations writer, or to present a work exploring contemporary migration, these are not just aesthetic choices. They are statements about what this company believes Australian culture is, and what it should become.</p>
+  </div>
+
+  <div class="reveal">
+    <div class="framework-quote">
+      <div class="quote-title">The core question for any artistic director</div>
+      <p class="quote-text">It is bold decisions such as these that shape a theatre's identity and make for a strong, varied theatre culture.</p>
+      <div class="quote-attribution">— Matt Trueman, <em>The Guardian</em> (2011)</div>
+    </div>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- SECTION 6: WHAT TO WATCH FOR -->
+<div class="section">
+  <div class="reveal">
+    <div class="section-label">06 — Your Turn</div>
+    <h2 class="section-title">What to look for in MTC's season</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="body-text reveal">
+    <p>With this in mind, the video interviews in this module give you a chance to hear directly from Chris Mead — former MTC Literary Manager — about the thinking behind MTC's programming decisions. As you watch, you might hold some of these questions in mind:</p>
+  </div>
+
+  <div class="reveal">
+    <ul class="priority-list">
+      <li>What balance does MTC try to strike between familiar, crowd-pleasing work and new or challenging productions?</li>
+      <li>How does MTC think about its audience — as a single group with shared tastes, or as many different audiences with different needs?</li>
+      <li>What role does new Australian writing play in MTC's identity? Why might that matter?</li>
+      <li>Where does MTC sit on the spectrum between a theatre with a clear identity and one that offers something for everyone?</li>
+      <li>Can you identify any of the tensions described on this page in what Chris Mead says?</li>
+    </ul>
+  </div>
+
+  <div class="body-text reveal" style="margin-top: 2rem;">
+    <p>There are no right answers here — but there are more and less well-supported ones. The ideas on this page give you a vocabulary for thinking and talking about what you hear. Use them.</p>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- FURTHER READING -->
+<div class="section">
+  <div class="reveal">
+    <div class="section-label">Further Reading</div>
+    <h2 class="section-title">This module is based on</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="reveal">
+    <ul class="priority-list">
+      <li>
+        <span style="font-weight: 600; color: var(--mtc-blue);">Turner, Cathy and Synne Behrndt.</span>
+        'The Dramaturg as Programmer'. In <em>Dramaturgy and Performance</em>, pp. 114–117. Palgrave Macmillan, 2008.
+      </li>
+      <li>
+        <span style="font-weight: 600; color: var(--mtc-blue);">Trueman, Matt.</span>
+        '<a href="https://www.theguardian.com/stage/theatreblog/2011/may/12/how-to-programme-theatre-season" target="_blank" class="text-link">What's the Secret of a Good Theatre Programme?</a>' <em>The Guardian</em>, 13 May 2011.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>DRAM10026 · Inside Look at Melbourne Theatre Company · University of Melbourne · Semester 1, 2026</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
