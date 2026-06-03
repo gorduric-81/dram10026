@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRAM10026 — Subject Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f0eb;
+    --warm-white: #faf7f2;
+    --cream: #e8e0d4;
+    --mtc-blue: #1a2a4a;
+    --mtc-gold: #c8a45c;
+    --mtc-copper: #b87333;
+    --stage-red: #8b2500;
+    --muted-sage: #7a8b6f;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-light: #888;
+    --divider: #d4cdc4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--text-primary);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245, 240, 235, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--divider);
+    transition: all 0.4s ease;
+  }
+
+  nav.scrolled {
+    padding: 0.6rem 3rem;
+    background: rgba(245, 240, 235, 0.95);
+  }
+
+  .nav-brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mtc-blue);
+  }
+
+  .nav-right {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 9rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--mtc-blue);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 60vw; height: 60vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 164, 92, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--paper);
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--mtc-gold);
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .hero-meta-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245, 240, 235, 0.45);
+  }
+
+  .hero-meta-value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--paper);
+  }
+
+  /* ─── LAYOUT: SIDEBAR + MAIN ─── */
+  .page-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 3rem;
+    padding: 0 3rem;
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+    padding: 2rem 0;
+  }
+
+  .sidebar-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 1.2rem;
+  }
+
+  .sidebar-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .sidebar-nav a {
+    display: block;
+    padding: 0.5rem 0 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-left: 1px solid var(--divider);
+    transition: all 0.3s ease;
+    line-height: 1.4;
+  }
+
+  .sidebar-nav a:hover {
+    color: var(--mtc-blue);
+    border-left-color: var(--mtc-copper);
+  }
+
+  .sidebar-nav a.active {
+    color: var(--mtc-blue);
+    font-weight: 600;
+    border-left: 2px solid var(--mtc-copper);
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .main-content {
+    padding: 3rem 0 6rem;
+  }
+
+  .guide-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .guide-section:last-child {
+    border-bottom: none;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1.2rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--mtc-blue);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .section-divider {
+    width: 50px; height: 1px;
+    background: var(--mtc-copper);
+    margin-bottom: 1.5rem;
+  }
+
+  .guide-text {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--text-primary);
+    max-width: 680px;
+  }
+
+  .guide-text p {
+    margin-bottom: 1.2rem;
+  }
+
+  .guide-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .highlight {
+    background: linear-gradient(to top, rgba(200, 164, 92, 0.15) 40%, transparent 40%);
+    padding: 0 2px;
+  }
+
+  /* ─── STAFF CARDS ─── */
+  .staff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    max-width: 680px;
+  }
+
+  .staff-card {
+    padding: 1.5rem;
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+  }
+
+  .staff-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.5rem;
+  }
+
+  .staff-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--mtc-blue);
+    margin-bottom: 0.3rem;
+  }
+
+  .staff-email {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .staff-email a {
+    color: var(--mtc-copper);
+    text-decoration: none;
+  }
+
+  .staff-email a:hover {
+    text-decoration: underline;
+  }
+
+  .staff-note {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 0.5rem;
+    line-height: 1.5;
+  }
+
+  /* ─── INFO GRID ─── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    max-width: 680px;
+  }
+
+  .info-item {}
+
+  .info-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.4rem;
+  }
+
+  .info-value {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .info-detail {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 0.3rem;
+  }
+
+  /* ─── ILOs ─── */
+  .ilo-list {
+    max-width: 680px;
+    margin-top: 1.5rem;
+  }
+
+  .ilo-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .ilo-item:first-child {
+    border-top: 1px solid var(--divider);
+  }
+
+  .ilo-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: rgba(26, 42, 74, 0.1);
+    line-height: 1;
+  }
+
+  .ilo-text {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    padding-top: 0.2rem;
+  }
+
+  /* ─── SCHEDULE TABLE ─── */
+  .schedule-block {
+    margin-top: 2rem;
+    max-width: 680px;
+  }
+
+  .schedule-phase {
+    margin-bottom: 2.5rem;
+  }
+
+  .phase-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.4rem;
+  }
+
+  .phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--mtc-blue);
+    margin-bottom: 1.2rem;
+  }
+
+  .module-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 1.2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--divider);
+    align-items: start;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .module-row:hover {
+    background: rgba(200, 164, 92, 0.04);
+    margin: 0 -0.75rem;
+    padding: 1rem 0.75rem;
+  }
+
+  .module-row:first-child {
+    border-top: 1px solid var(--divider);
+  }
+
+  .module-week {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    padding-top: 0.15rem;
+  }
+
+  .module-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .module-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .module-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .module-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    white-space: nowrap;
+    padding-top: 0.15rem;
+  }
+
+  .module-badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid;
+  }
+
+  .badge-tutorial {
+    color: var(--mtc-copper);
+    border-color: var(--mtc-copper);
+  }
+
+  .badge-due {
+    color: var(--stage-red);
+    border-color: var(--stage-red);
+  }
+
+  .badge-show {
+    color: var(--muted-sage);
+    border-color: var(--muted-sage);
+  }
+
+  .badge-ioa {
+    color: var(--mtc-blue);
+    border-color: var(--mtc-blue);
+  }
+
+  /* ─── ASSESSMENT CARDS ─── */
+  .assessment-grid {
+    margin-top: 1.5rem;
+    max-width: 680px;
+  }
+
+  .assessment-card {
+    border-bottom: 1px solid var(--divider);
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .assessment-card:first-child {
+    border-top: 1px solid var(--divider);
+  }
+
+  .assessment-card:hover {
+    background: rgba(200, 164, 92, 0.04);
+  }
+
+  .assessment-header {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    align-items: center;
+  }
+
+  .assessment-weight {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--mtc-blue);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .assessment-card.active .assessment-weight {
+    color: var(--mtc-copper);
+  }
+
+  .assessment-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .assessment-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--mtc-blue);
+    transition: color 0.3s;
+  }
+
+  .assessment-card.active .assessment-name {
+    color: var(--mtc-copper);
+  }
+
+  .assessment-timing {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+  }
+
+  .assessment-toggle {
+    width: 30px; height: 30px;
+    border: 1px solid var(--divider);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+
+  .assessment-toggle::before,
+  .assessment-toggle::after {
+    content: '';
+    position: absolute;
+    background: var(--mtc-blue);
+    transition: all 0.4s ease;
+  }
+
+  .assessment-toggle::before { width: 10px; height: 1.5px; }
+  .assessment-toggle::after { width: 1.5px; height: 10px; }
+
+  .assessment-card.active .assessment-toggle {
+    border-color: var(--mtc-copper);
+    transform: rotate(45deg);
+  }
+
+  .assessment-card.active .assessment-toggle::before,
+  .assessment-card.active .assessment-toggle::after {
+    background: var(--mtc-copper);
+  }
+
+  .assessment-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-left: calc(70px + 1.5rem);
+  }
+
+  .assessment-card.active .assessment-body {
+    max-height: 800px;
+  }
+
+  .assessment-body-inner {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease 0.1s;
+    padding-bottom: 2rem;
+  }
+
+  .assessment-card.active .assessment-body-inner {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .assessment-desc {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .assessment-desc p { margin-bottom: 0.8rem; }
+  .assessment-desc p:last-child { margin-bottom: 0; }
+
+  .assessment-note {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    background: var(--warm-white);
+    border-left: 2px solid var(--mtc-gold);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .assessment-hint {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-top: 1.5rem;
+  }
+
+  /* ─── CALLOUT BOX ─── */
+  .callout {
+    margin-top: 1.5rem;
+    padding: 1.5rem 2rem;
+    background: var(--mtc-blue);
+    color: var(--paper);
+    max-width: 680px;
+  }
+
+  .callout-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mtc-gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .callout-text {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(245, 240, 235, 0.85);
+  }
+
+  /* ─── EXPANDABLE POLICY SECTIONS ─── */
+  .policy-group {
+    margin-top: 1.5rem;
+    max-width: 680px;
+  }
+
+  .policy-item {
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .policy-item:first-child {
+    border-top: 1px solid var(--divider);
+  }
+
+  .policy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 0;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .policy-header:hover {
+    background: rgba(200, 164, 92, 0.04);
+    margin: 0 -0.5rem;
+    padding: 1.2rem 0.5rem;
+  }
+
+  .policy-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .policy-toggle {
+    width: 24px; height: 24px;
+    border: 1px solid var(--divider);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+
+  .policy-toggle::before,
+  .policy-toggle::after {
+    content: '';
+    position: absolute;
+    background: var(--text-secondary);
+    transition: all 0.4s ease;
+  }
+
+  .policy-toggle::before { width: 8px; height: 1px; }
+  .policy-toggle::after { width: 1px; height: 8px; }
+
+  .policy-item.active .policy-toggle {
+    border-color: var(--mtc-copper);
+    transform: rotate(45deg);
+  }
+
+  .policy-item.active .policy-toggle::before,
+  .policy-item.active .policy-toggle::after {
+    background: var(--mtc-copper);
+  }
+
+  .policy-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .policy-item.active .policy-body {
+    max-height: 2000px;
+  }
+
+  .policy-body-inner {
+    padding: 0 0 1.5rem 0;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.3s ease 0.1s;
+  }
+
+  .policy-item.active .policy-body-inner {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .policy-text {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .policy-text p { margin-bottom: 0.8rem; }
+  .policy-text p:last-child { margin-bottom: 0; }
+
+  .policy-text a {
+    color: var(--mtc-copper);
+    text-decoration: none;
+  }
+
+  .policy-text a:hover { text-decoration: underline; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 3rem;
+    text-align: center;
+    border-top: 1px solid var(--divider);
+  }
+
+  footer p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollDrop {
+    0% { top: -100%; }
+    50% { top: 100%; }
+    100% { top: 100%; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0.8rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; min-height: 45vh; }
+
+    .page-layout {
+      grid-template-columns: 1fr;
+      padding: 0 1.5rem;
+      gap: 0;
+    }
+
+    .sidebar {
+      position: relative;
+      top: 0;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .sidebar-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .sidebar-nav a {
+      border-left: none;
+      border-bottom: 1px solid var(--divider);
+      padding: 0.4rem 0.8rem;
+      font-size: 0.72rem;
+    }
+
+    .sidebar-nav a.active {
+      border-left: none;
+      border-bottom: 2px solid var(--mtc-copper);
+    }
+
+    .staff-grid,
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .module-row {
+      grid-template-columns: 60px 1fr;
+    }
+
+    .module-date { display: none; }
+
+    .assessment-header {
+      grid-template-columns: 55px 1fr auto;
+      gap: 1rem;
+    }
+
+    .assessment-weight { font-size: 1.8rem; }
+
+    .assessment-body,
+    .assessment-card.active .assessment-body {
+      padding-left: calc(55px + 1rem);
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-brand">DRAM10026</div>
+  <div class="nav-right">Subject Guide · Semester 1, 2026</div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-label">Faculty of Fine Arts and Music · School of Performing Arts</div>
+  <h1 class="hero-title">Subject <em>Guide</em></h1>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Subject</div>
+      <div class="hero-meta-value">Inside Look at MTC (DRAM10026)</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Credit Points</div>
+      <div class="hero-meta-value">12.5</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Semester</div>
+      <div class="hero-meta-value">Semester 1, 2026</div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── PAGE LAYOUT ─── -->
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-label">Contents</div>
+    <ul class="sidebar-nav">
+      <li><a href="#welcome" class="active">Welcome</a></li>
+      <li><a href="#staff">Staff</a></li>
+      <li><a href="#subject-info">Subject Information</a></li>
+      <li><a href="#outcomes">Learning Outcomes</a></li>
+      <li><a href="#schedule">Subject Schedule</a></li>
+      <li><a href="#assessment">Assessment</a></li>
+      <li><a href="#submission">Submission &amp; Grading</a></li>
+      <li><a href="#canvas">Canvas &amp; Turnitin</a></li>
+      <li><a href="#policies">University Policies</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- ─── WELCOME ─── -->
+    <div class="guide-section reveal" id="welcome">
+      <div class="section-label">01</div>
+      <h2 class="section-title">Welcome to the Subject</h2>
+      <div class="section-divider"></div>
+      <div class="guide-text">
+        <p>This subject provides an <span class="highlight">inside look</span> at the art, craft and culture of Melbourne Theatre Company (MTC). Emphasis is placed on you — the audience — and your appreciation of the work of the playwright, director, actor, designer, producer and critic. By the end of the semester you should be able to demonstrate a vocabulary of theatre terms and recognise the contributions of various theatre artists in an organisation like MTC.</p>
+        <p>You will attend two live MTC productions at Southbank Theatre — Dennis McIntosh's <em>West Gate</em> and Tennessee Williams's <em>The Glass Menagerie</em> — and develop your critical voice through curated video content, peer engagement and a culminating oral assessment. No theatre appreciation subject is complete without the live experience; the only prerequisite is your life experience and a desire to engage with performance.</p>
+      </div>
+    </div>
+
+    <!-- ─── STAFF ─── -->
+    <div class="guide-section reveal" id="staff">
+      <div class="section-label">02</div>
+      <h2 class="section-title">Staff Information</h2>
+      <div class="section-divider"></div>
+      <div class="staff-grid">
+        <div class="staff-card">
+          <div class="staff-role">Subject Coordinator</div>
+          <div class="staff-name">Associate Professor Chris Mead</div>
+          <div class="staff-email"><a href="mailto:christopher.mead@unimelb.edu.au">christopher.mead@unimelb.edu.au</a></div>
+          <div class="staff-note">Office: Theatre, Building 879, Dodds Street, Southbank VIC 3006</div>
+        </div>
+        <div class="staff-card">
+          <div class="staff-role">Instructor</div>
+          <div class="staff-name">Dr Goran Đurić</div>
+          <div class="staff-email"><a href="mailto:g.duric@unimelb.edu.au">g.duric@unimelb.edu.au</a></div>
+          <div class="staff-note">Please note emails may be delayed by a day or two, but they will get a response.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── SUBJECT INFORMATION ─── -->
+    <div class="guide-section reveal" id="subject-info">
+      <div class="section-label">03</div>
+      <h2 class="section-title">Subject Information</h2>
+      <div class="section-divider"></div>
+      <div class="guide-text">
+        <p>Inside Look at MTC will enhance your knowledge of one of Melbourne's most significant cultural institutions and enliven the experience of going to the theatre in Australia's greatest city. You will be provided with access to two live productions at Southbank Theatre. Readings, videos and other materials are available online via Canvas.</p>
+        <p>These productions will be discussed throughout the semester; in doing so, we will consider how theatre contributes to the cultural conversations happening around us right now.</p>
+      </div>
+
+      <div class="info-grid" style="margin-top: 2rem;">
+        <div class="info-item">
+          <div class="info-label">Credit Points</div>
+          <div class="info-value">12.5</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Delivery</div>
+          <div class="info-value">Hybrid</div>
+          <div class="info-detail">Zoom tutorials, Canvas modules, FeedbackFruits peer engagement, and in-person IOA sessions</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Contact Hours</div>
+          <div class="info-value">Approx. 8–10 hours/week</div>
+          <div class="info-detail">Including video viewing, research, journal writing, peer engagement and preparing for the oral assessment</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Prescribed Texts</div>
+          <div class="info-value">None</div>
+          <div class="info-detail">All reading and viewing materials provided on Canvas</div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top: 2rem;">
+        <div class="callout-label">Productions</div>
+        <div class="callout-text">Dennis McIntosh's <em>West Gate</em> and Tennessee Williams's <em>The Glass Menagerie</em> at Southbank Theatre. Tickets will be made available shortly after the subject census date (30 March). Please wait for instructions before making any arrangements.</div>
+      </div>
+    </div>
+
+    <!-- ─── LEARNING OUTCOMES ─── -->
+    <div class="guide-section reveal" id="outcomes">
+      <div class="section-label">04</div>
+      <h2 class="section-title">Learning Outcomes</h2>
+      <div class="section-divider"></div>
+      <div class="guide-text" style="margin-bottom: 0.5rem;">
+        <p>On successful completion of this subject, you should be able to:</p>
+      </div>
+      <div class="ilo-list">
+        <div class="ilo-item">
+          <div class="ilo-number">1</div>
+          <div class="ilo-text">Use theatrical terms to analyse and evaluate methods of artistic and intellectual expression through theatre</div>
+        </div>
+        <div class="ilo-item">
+          <div class="ilo-number">2</div>
+          <div class="ilo-text">Recognise and identify the contributions of key members of the collaborative team who create and perform theatre</div>
+        </div>
+        <div class="ilo-item">
+          <div class="ilo-number">3</div>
+          <div class="ilo-text">Identify and explain basic social, cultural and political influences on theatre in an Australian context</div>
+        </div>
+        <div class="ilo-item">
+          <div class="ilo-number">4</div>
+          <div class="ilo-text">Critically examine theatrical events using opinion, taste and cultural awareness</div>
+        </div>
+        <div class="ilo-item">
+          <div class="ilo-number">5</div>
+          <div class="ilo-text">Identify basic elements of stagecraft and the techniques used for staging theatre</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── SUBJECT SCHEDULE ─── -->
+    <div class="guide-section reveal" id="schedule">
+      <div class="section-label">05</div>
+      <h2 class="section-title">Subject Schedule</h2>
+      <div class="section-divider"></div>
+      <div class="guide-text">
+        <p>All modules are released weekly on Canvas. Zoom tutorials are non-compulsory but strongly encouraged; recordings will be uploaded to Canvas. You are expected to stay on top of weekly video viewing and to engage with peers via FeedbackFruits. Two office hours are available during the semester for drop-in support — details in the subject schedule.</p>
+      </div>
+
+      <div class="schedule-block">
+
+        <!-- PHASE 1 -->
+        <div class="schedule-phase">
+          <div class="phase-label">Weeks 1–5</div>
+          <div class="phase-title">Introducing Melbourne Theatre Company</div>
+
+          <div class="module-row">
+            <div class="module-week">Week 1</div>
+            <div class="module-info">
+              <div class="module-title">Module 1: What is Theatre?</div>
+              <div class="module-desc">Subject introduction. Company background, history and MTC today</div>
+              <span class="module-badge badge-tutorial">Tutorial 1: Welcome — Tue 3 Mar, 5–7pm, Zoom (Goran + Chris)</span>
+            </div>
+            <div class="module-date">2 Mar</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week">Week 2</div>
+            <div class="module-info">
+              <div class="module-title">Module 2: MTC History &amp; Today</div>
+              <div class="module-desc">Financial position, structure, NPAP Framework. Opening salvos for critical thinking</div>
+              <span class="module-badge badge-show">West Gate opens 10 March</span>
+            </div>
+            <div class="module-date">9 Mar</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week">Week 3</div>
+            <div class="module-info">
+              <div class="module-title">Module 3: Programming a Season</div>
+              <div class="module-desc">Selection and curation. Processes for developing new theatre work</div>
+              <span class="module-badge badge-due">Draft Journal Entry 1 (Modules 1–3)</span>
+            </div>
+            <div class="module-date">16 Mar</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week">Week 4</div>
+            <div class="module-info">
+              <div class="module-title">Module 4: From Page to Stage</div>
+              <div class="module-desc">MTC production processes. Theatre elements: acting, lighting, sound and costume</div>
+              <span class="module-badge badge-due">MTC Quiz (20%) — due Fri 27 March</span>
+            </div>
+            <div class="module-date">23 Mar</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week">Week 5</div>
+            <div class="module-info">
+              <div class="module-title">Module 5: Melbourne's Theatre Ecology</div>
+              <div class="module-desc">MTC, Malthouse, Red Stitch, La Mama, Arts House and Theatre Works. Melbourne's independent scene</div>
+              <span class="module-badge badge-due">Draft Journal Entry 2 (Modules 4–5)</span>
+            </div>
+            <div class="module-date">30 Mar</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week" style="color: var(--text-light); font-style: italic;">NTP</div>
+            <div class="module-info">
+              <div class="module-title" style="color: var(--text-light); font-weight: 400; font-style: italic;">Easter Break — Non-teaching period, 6–12 April</div>
+              <div class="module-desc">Good time to see <em>West Gate</em> if you haven't yet</div>
+            </div>
+            <div class="module-date">6 Apr</div>
+          </div>
+        </div>
+
+        <!-- PHASE 2 -->
+        <div class="schedule-phase">
+          <div class="phase-label">Weeks 6–8</div>
+          <div class="phase-title">Theatre and the Role of the Critic</div>
+
+          <div class="module-row">
+            <div class="module-week">Week 6</div>
+            <div class="module-info">
+              <div class="module-title">Module 6: Reviewing Theatre — Part 1</div>
+              <div class="module-desc">The role of the contemporary theatre reviewer</div>
+              <span class="module-badge badge-tutorial">Tutorial 2: West Gate Post-Show — Wed 15 Apr, 5–7pm, Zoom (Goran)</span>
+              <span class="module-badge badge-show">West Gate closes 18 April</span>
+            </div>
+            <div class="module-date">13 Apr</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week">Week 7</div>
+            <div class="module-info">
+              <div class="module-title">Module 7: Reviewing Theatre — Part 2</div>
+              <div class="module-desc">The role of the contemporary theatre reviewer, continued</div>
+              <span class="module-badge badge-due">Draft Journal Entry 3 (Modules 6–7)</span>
+              <span class="module-badge badge-show">The Glass Menagerie opens 27 April</span>
+            </div>
+            <div class="module-date">20 Apr</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week">Week 8</div>
+            <div class="module-info">
+              <div class="module-title">Module 8: Reviewing Theatre — Part 3</div>
+              <div class="module-desc">Reviewing online and recorded theatre. Final module content</div>
+              <span class="module-badge badge-due">Draft Journal Entry 4 (Module 8 + productions)</span>
+            </div>
+            <div class="module-date">27 Apr</div>
+          </div>
+        </div>
+
+        <!-- PHASE 3 -->
+        <div class="schedule-phase">
+          <div class="phase-label">Weeks 9–12</div>
+          <div class="phase-title">Reviewing Performance</div>
+
+          <div class="module-row">
+            <div class="module-week">Week 9</div>
+            <div class="module-info">
+              <div class="module-title">Consolidation</div>
+              <div class="module-desc">No new module content. Peer exchanges and production viewing continue</div>
+            </div>
+            <div class="module-date">4 May</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week">Week 10</div>
+            <div class="module-info">
+              <div class="module-title"><em>The Glass Menagerie</em> — Post-Show Discussion</div>
+              <div class="module-desc">Must have seen <em>The Glass Menagerie</em> by end of this week</div>
+              <span class="module-badge badge-tutorial">Tutorial 3: Glass Menagerie Post-Show — Tue 12 May, 5–7pm, Zoom (Goran)</span>
+            </div>
+            <div class="module-date">11 May</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week">Week 11</div>
+            <div class="module-info">
+              <div class="module-title">IOA Preparation</div>
+              <div class="module-desc">Preparing for the Interactive Oral Assessment. 600-word IOA Overview due before your session</div>
+              <span class="module-badge badge-tutorial">Tutorial 4: IOA Preparation — Wed 20 May, 5–7pm, Zoom (Goran + Chris)</span>
+            </div>
+            <div class="module-date">18 May</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week">Week 12</div>
+            <div class="module-info">
+              <div class="module-title">Interactive Oral Assessment</div>
+              <div class="module-desc">In person, Southbank Campus, 5–7pm. Up to 5 groups, capped at 10 per session. You attend one</div>
+              <span class="module-badge badge-ioa">IOA (50%) — Tue 26 May &amp; Wed 27 May</span>
+            </div>
+            <div class="module-date">25 May</div>
+          </div>
+
+          <div class="module-row">
+            <div class="module-week"></div>
+            <div class="module-info">
+              <span class="module-badge badge-due">Research Journal (30%) — Full journal due Friday 12 June</span>
+            </div>
+            <div class="module-date"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── ASSESSMENT ─── -->
+    <div class="guide-section reveal" id="assessment">
+      <div class="section-label">06</div>
+      <h2 class="section-title">Assessment</h2>
+      <div class="section-divider"></div>
+      <div class="guide-text">
+        <p>There are three assessments for this subject. All assessments need to be attempted in order to qualify for a pass mark. Students will be assessed on their engagement with subject materials and their capacity to demonstrate the intended learning outcomes.</p>
+      </div>
+
+      <div class="assessment-grid">
+
+        <!-- Quiz -->
+        <div class="assessment-card" onclick="toggleCard(this)">
+          <div class="assessment-header">
+            <div class="assessment-weight">20<span style="font-size:1rem;">%</span></div>
+            <div class="assessment-header-text">
+              <div class="assessment-name">MTC Quiz</div>
+              <div class="assessment-timing">Due Friday 27 March</div>
+            </div>
+            <div class="assessment-toggle"></div>
+          </div>
+          <div class="assessment-body">
+            <div class="assessment-body-inner">
+              <div class="assessment-desc">
+                <p>An online quiz via Canvas asking you to identify key theatre concepts and terminology related to Melbourne Theatre Company, drawn from Modules 1–4.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IOA -->
+        <div class="assessment-card" onclick="toggleCard(this)">
+          <div class="assessment-header">
+            <div class="assessment-weight">50<span style="font-size:1rem;">%</span></div>
+            <div class="assessment-header-text">
+              <div class="assessment-name">Interactive Oral Assessment</div>
+              <div class="assessment-timing">Week 12 · 25–28 May · In Person</div>
+            </div>
+            <div class="assessment-toggle"></div>
+          </div>
+          <div class="assessment-body">
+            <div class="assessment-body-inner">
+              <div class="assessment-desc">
+                <p>A comparative oral review of both MTC productions, delivered as a group discussion. In advance, you submit a 600-word written overview outlining your critical position on both shows. This is not a formal essay but a structured preparation document to anchor your contribution to the discussion.</p>
+                <p>In both the written overview and the oral discussion you should: discuss each production in terms of your own personal response and what you felt the makers were trying to achieve; demonstrate understanding of theatrical concepts and the roles of different creatives; draw comparisons between the two productions; and move beyond simple opinion into why certain choices were made and what the experience of watching each production was actually like.</p>
+                <p>The discussion is a genuine conversation, not a presentation. Listening and responding to your peers is part of what is being assessed.</p>
+              </div>
+              <div class="assessment-note">Academic tone and referencing conventions are not appropriate — this is your response as an informed audience member. Examples of theatre reviews and critical discussions are provided across Modules 6 to 8. An assessment rubric is available on the subject page.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Research Journal -->
+        <div class="assessment-card" onclick="toggleCard(this)">
+          <div class="assessment-header">
+            <div class="assessment-weight">30<span style="font-size:1rem;">%</span></div>
+            <div class="assessment-header-text">
+              <div class="assessment-name">Research Journal</div>
+              <div class="assessment-timing">Full journal due Friday 12 June · Drafts at specified points</div>
+            </div>
+            <div class="assessment-toggle"></div>
+          </div>
+          <div class="assessment-body">
+            <div class="assessment-body-inner">
+              <div class="assessment-desc">
+                <p>Throughout the semester, the videos you watch in each module contain embedded provocations: questions and prompts designed to spark reflection and inquiry. These provocations are your Research Journal entry points.</p>
+                <p>You will develop four journal entries in response to these provocations, drawing on a combination of curated videos and your own web-based research. You will submit notes and drafts at specified points during the semester, with your complete journal due during the assessment period.</p>
+                <p>Your journal can take many forms. Written entries are welcome, but so are creative responses: video essays, sketches, photographs, performance documentation, or any other form that engages seriously with the material.</p>
+              </div>
+              <div class="assessment-note">Creative and theatrical approaches that demonstrate genuine intellectual engagement will be recognised in your mark. Your final mark reflects the quality of your entries and your sustained engagement with the draft-and-feedback cycle with your peers throughout the semester.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <p class="assessment-hint">Click each assessment to read more</p>
+    </div>
+
+    <!-- ─── SUBMISSION & GRADING ─── -->
+    <div class="guide-section reveal" id="submission">
+      <div class="section-label">07</div>
+      <h2 class="section-title">Submission &amp; Grading</h2>
+      <div class="section-divider"></div>
+      <div class="guide-text">
+        <p>All written assignments are to be submitted via Turnitin in the Submissions area of Canvas. Once your assignment has been marked, you will be able to access your feedback by clicking on the Submit/View link for your assignment. All assignments are due by 11:59pm Melbourne Time on the identified day unless otherwise specified.</p>
+        <p>Marking criteria will be outlined in materials posted on Canvas and discussed further in Zoom tutorials. A copy of assessment rubrics used for grading will be posted to Canvas well in advance of any due dates.</p>
+        <p>For a full list of grading and results codes, see the University's <a href="https://policy.unimelb.edu.au/MPF1326" style="color: var(--mtc-copper); text-decoration: none;">Assessment and Results Policy</a>.</p>
+      </div>
+    </div>
+
+    <!-- ─── CANVAS & TURNITIN ─── -->
+    <div class="guide-section reveal" id="canvas">
+      <div class="section-label">08</div>
+      <h2 class="section-title">Canvas &amp; Turnitin</h2>
+      <div class="section-divider"></div>
+      <div class="guide-text">
+        <p>Canvas is an important source of information for this subject. Useful resources such as module content, subject announcements and materials will be available through the site. It is your responsibility to regularly check in with Canvas for subject announcements and updates.</p>
+        <p>You will require a university email account (username and password) to access Canvas at <a href="http://www.lms.unimelb.edu.au/login/" style="color: var(--mtc-copper); text-decoration: none;">lms.unimelb.edu.au</a>.</p>
+      </div>
+
+      <div class="policy-group">
+        <div class="policy-item" onclick="togglePolicy(this)">
+          <div class="policy-header">
+            <div class="policy-title">Submitting via Turnitin</div>
+            <div class="policy-toggle"></div>
+          </div>
+          <div class="policy-body">
+            <div class="policy-body-inner">
+              <div class="policy-text">
+                <p>If you have not submitted an assignment using Turnitin before, consult the student guides available through <a href="https://lms.unimelb.edu.au/support/guides/">Canvas Support</a>.</p>
+                <p>Upon successful submission a digital receipt number is generated and displayed on screen. Please make a note of this number. If you cannot see a receipt number, you have not successfully uploaded your file. You should also receive an email confirmation of your submission.</p>
+                <p>To avoid disputes over submissions, it is recommended that you keep the digital receipt number and the email until the semester is over and final results are known.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="policy-item" onclick="togglePolicy(this)">
+          <div class="policy-header">
+            <div class="policy-title">Understanding Turnitin Feedback</div>
+            <div class="policy-toggle"></div>
+          </div>
+          <div class="policy-body">
+            <div class="policy-body-inner">
+              <div class="policy-text">
+                <p>If you have not accessed feedback on an assignment via Turnitin before, consult the guides available through <a href="https://lms.unimelb.edu.au/support/guides/">Canvas Support</a> on feedback, similarity reports and Studio.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="policy-item" onclick="togglePolicy(this)">
+          <div class="policy-header">
+            <div class="policy-title">Troubleshooting</div>
+            <div class="policy-toggle"></div>
+          </div>
+          <div class="policy-body">
+            <div class="policy-body-inner">
+              <div class="policy-text">
+                <p>If you have trouble accessing Canvas, report it immediately by submitting an online help request at <a href="https://lms.unimelb.edu.au/support/request#students">Canvas Support</a>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── UNIVERSITY POLICIES ─── -->
+    <div class="guide-section reveal" id="policies">
+      <div class="section-label">09</div>
+      <h2 class="section-title">University Policies</h2>
+      <div class="section-divider"></div>
+      <div class="guide-text" style="margin-bottom: 1rem;">
+        <p>The following university policies apply to all students enrolled in this subject. Click each section to expand.</p>
+      </div>
+
+      <div class="policy-group">
+
+        <div class="policy-item" onclick="togglePolicy(this)">
+          <div class="policy-header">
+            <div class="policy-title">Extensions</div>
+            <div class="policy-toggle"></div>
+          </div>
+          <div class="policy-body">
+            <div class="policy-body-inner">
+              <div class="policy-text">
+                <p>Students may be granted extensions of up to two weeks (10 working days) to accommodate unforeseen extenuating circumstances, where a student's capacity to complete required work by the due date has been affected by significant factors beyond their control.</p>
+                <p>Students requesting extensions longer than two weeks should apply for Special Consideration instead.</p>
+                <p>Applications for extensions must be submitted before the due date of the assignment, unless exceptional circumstances prevent a timely application. Submission of an application does not mean automatic approval. Students should continue to complete work by the due date until advised of the outcome.</p>
+                <p>Eligible circumstances include: illness or medical condition (with certificate), injury or trauma, death or serious illness of a close family member, illness of a dependent for whom the student is primary caregiver, unforeseen events substantially impacting preparation, and legal commitments such as jury duty.</p>
+                <p>Extensions will not be granted for: computer failure, assessment tasks in other subjects, employment responsibilities, social activities, normal stress or anxiety, study difficulties, language difficulties, minor inconvenience, or performance-related commitments without Elite Performer registration.</p>
+                <p>If you're unsure about supporting documentation, contact <a href="mailto:fineartsmusicspecialcon@unimelb.edu.au">fineartsmusicspecialcon@unimelb.edu.au</a>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="policy-item" onclick="togglePolicy(this)">
+          <div class="policy-header">
+            <div class="policy-title">Late Submission</div>
+            <div class="policy-toggle"></div>
+          </div>
+          <div class="policy-body">
+            <div class="policy-body-inner">
+              <div class="policy-text">
+                <p>Where no extension or special consideration has been sought, late submissions will receive the following penalties:</p>
+                <p>10% of the maximum mark per working day (or part thereof) the assessment is overdue, where work is less than a week overdue. A pass mark capped at 50% where work is more than a week overdue. Assignments submitted two weeks after the deadline will not be marked and receive a mark of zero.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="policy-item" onclick="togglePolicy(this)">
+          <div class="policy-header">
+            <div class="policy-title">Academic Integrity</div>
+            <div class="policy-toggle"></div>
+          </div>
+          <div class="policy-body">
+            <div class="policy-body-inner">
+              <div class="policy-text">
+                <p>The Faculty of Fine Arts and Music expects all students to conduct themselves in a manner which is fair, honest and consistent with the principles of academic integrity.</p>
+                <p>Academic work submitted for assessment must be the original work of the author. If the ideas or words of others have been drawn upon, this must be thoroughly and clearly acknowledged using agreed scholarly conventions.</p>
+                <p>For full details, see the <a href="https://policy.unimelb.edu.au/MPF1310">Student Academic Integrity Policy (MPF1310)</a> and the <a href="https://lms.unimelb.edu.au/">Academic Integrity Module (AIM)</a> on Canvas. Additional information is available at the <a href="http://academicintegrity.unimelb.edu.au/">University Academic Integrity website</a>.</p>
+                <p>Plagiarism, collusion and all other forms of academic misconduct are serious offences managed according to the Student Academic Integrity Policy.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="policy-item" onclick="togglePolicy(this)">
+          <div class="policy-header">
+            <div class="policy-title">Useful Links</div>
+            <div class="policy-toggle"></div>
+          </div>
+          <div class="policy-body">
+            <div class="policy-body-inner">
+              <div class="policy-text">
+                <p><a href="https://unimelb.libguides.com/actingtheatre">Library Subject Guide — Acting &amp; Theatre</a></p>
+                <p><a href="https://services.unimelb.edu.au/academicskills">Academic Skills Unit</a> — resources and support through your learning progress at the University of Melbourne.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>DRAM10026 · Inside Look at Melbourne Theatre Company · University of Melbourne · Semester 1, 2026</p>
+</footer>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Sidebar active state on scroll
+  const sections = document.querySelectorAll('.guide-section');
+  const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        sidebarLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
+
+  sections.forEach(section => sectionObserver.observe(section));
+
+  // Toggle assessment cards
+  function toggleCard(card) {
+    const wasActive = card.classList.contains('active');
+    document.querySelectorAll('.assessment-card').forEach(c => c.classList.remove('active'));
+    if (!wasActive) card.classList.add('active');
+  }
+
+  // Toggle policy sections
+  function togglePolicy(item) {
+    const wasActive = item.classList.contains('active');
+    // Don't close others — allow multiple open
+    if (wasActive) {
+      item.classList.remove('active');
+    } else {
+      item.classList.add('active');
+    }
+  }
+</script>
+
+</body>
+</html>
