@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 — Melbourne's Theatre Ecology</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f0eb;
+    --warm-white: #faf7f2;
+    --cream: #e8e0d4;
+    --mtc-blue: #1a2a4a;
+    --mtc-gold: #c8a45c;
+    --mtc-copper: #b87333;
+    --stage-red: #8b2500;
+    --muted-sage: #7a8b6f;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-light: #888;
+    --divider: #d4cdc4;
+    --highlight: rgba(200, 164, 92, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -15%;
+    width: 70vw;
+    height: 70vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 37, 0, 0.04) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--ink);
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin-top: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+
+  .hero-epigraph {
+    margin-top: 2.5rem;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--divider);
+    max-width: 550px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.9s forwards;
+  }
+
+  .hero-epigraph blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .hero-epigraph cite {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── SECTIONS ─── */
+  .narrative-section {
+    padding: 5rem 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .narrative-section.wide {
+    max-width: 1000px;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 1rem;
+  }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--mtc-copper);
+    margin: 1.2rem 0 2rem;
+  }
+
+  .narrative-text {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    line-height: 1.8;
+    margin-bottom: 1.4rem;
+  }
+
+  .narrative-text:last-child {
+    margin-bottom: 0;
+  }
+
+  .narrative-text a {
+    color: var(--mtc-copper);
+    text-decoration: underline;
+    text-decoration-color: rgba(184, 115, 51, 0.3);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.3s ease;
+  }
+
+  .narrative-text a:hover {
+    text-decoration-color: var(--mtc-copper);
+  }
+
+  /* ─── PULL QUOTE ─── */
+  .pull-quote {
+    margin: 2.5rem 0;
+    padding: 2rem 2.5rem;
+    border-left: 3px solid var(--mtc-copper);
+    background: var(--highlight);
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.7;
+  }
+
+  .pull-quote cite {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 0.8rem;
+  }
+
+  /* ─── DATA CALLOUT ─── */
+  .data-callout {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background: var(--mtc-blue);
+    color: #fff;
+    border-radius: 2px;
+  }
+
+  .data-callout .data-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mtc-gold);
+    margin-bottom: 1rem;
+  }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .data-item .data-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .data-item .data-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 0.4rem;
+    line-height: 1.5;
+  }
+
+  /* ─── TIMELINE ─── */
+  .era-timeline {
+    margin: 3rem 0 2rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .era-timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--divider);
+  }
+
+  .era-item {
+    position: relative;
+    padding: 0 0 2.5rem 2rem;
+  }
+
+  .era-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .era-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.4rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--mtc-copper);
+    background: var(--paper);
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+
+  .era-item:hover::before {
+    background: var(--mtc-copper);
+    transform: scale(1.2);
+  }
+
+  .era-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+    margin-bottom: 0.3rem;
+  }
+
+  .era-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .era-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ─── VENUE CARDS ─── */
+  .venue-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .venue-card {
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .venue-card:hover {
+    border-color: var(--mtc-copper);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .venue-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+
+  .venue-location {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .venue-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .venue-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--divider);
+    color: var(--text-light);
+    margin-top: 0.8rem;
+  }
+
+  .venue-tag.major { border-color: var(--mtc-blue); color: var(--mtc-blue); }
+  .venue-tag.independent { border-color: var(--muted-sage); color: var(--muted-sage); }
+  .venue-tag.first-nations { border-color: var(--stage-red); color: var(--stage-red); }
+
+  /* ─── EXPANDABLE READING ─── */
+  .reading-card {
+    margin: 1.5rem 0;
+    border: 1px solid var(--divider);
+    background: var(--warm-white);
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+
+  .reading-card:hover {
+    border-color: var(--mtc-copper);
+  }
+
+  .reading-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .reading-header:hover {
+    background: var(--highlight);
+  }
+
+  .reading-meta {
+    flex: 1;
+  }
+
+  .reading-source {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mtc-copper);
+  }
+
+  .reading-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 0.2rem;
+  }
+
+  .reading-arrow {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    transition: transform 0.3s ease;
+    margin-left: 1rem;
+  }
+
+  .reading-card.expanded .reading-arrow {
+    transform: rotate(180deg);
+  }
+
+  .reading-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .reading-card.expanded .reading-body {
+    max-height: 600px;
+  }
+
+  .reading-body-inner {
+    padding: 0 1.5rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .reading-body-inner a {
+    color: var(--mtc-copper);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ─── FULL DIVIDER ─── */
+  .full-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 3rem;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--text-light);
+    text-transform: uppercase;
+    border-top: 1px solid var(--divider);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: all 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+    .narrative-section { padding: 3rem 1.5rem; }
+    .data-grid { grid-template-columns: 1fr 1fr; }
+    .venue-grid { grid-template-columns: 1fr; }
+    .pull-quote { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ HERO ═══════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-label">Module 5 — Contextualising Theatre in Melbourne</div>
+  <h1 class="hero-title">The Ecology of Melbourne Theatre</h1>
+  <p class="hero-subtitle">How a city builds, sustains, and sometimes loses its theatre culture</p>
+  <div class="hero-epigraph">
+    <blockquote>The theatre is the only institution in the world which has been dying for 4,000 years and has never succumbed. It requires tough and devoted people to keep it alive.</blockquote>
+    <cite>— John Steinbeck</cite>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ PART 1: FOUNDATIONS ═══════════════════════════ -->
+<div class="narrative-section reveal">
+  <div class="section-label">Part One — Foundations</div>
+  <h2 class="section-heading">A city that makes theatre</h2>
+  <div class="section-divider"></div>
+
+  <p class="narrative-text">Melbourne has one of the most densely layered theatre cultures in the English-speaking world. Not just one scene, but many: a network of companies, venues, and independent artists that range from well-known institutions to tiny experimental spaces where the audience might outnumber the performers by a handful. No theatre company exists in isolation. They depend on each other, compete with each other, and feed each other talent, ideas, and audiences. The independent sector is the engine room of this ecology: the place where new work is developed, new artists emerge, and risks are taken that larger companies rarely can.</p>
+
+  <p class="narrative-text">This module traces the story of Melbourne's independent theatre: where it came from, how it works, what nearly destroyed it, and what's happening to it right now. It's a story about art, but it's also a story about money, politics, and the choices a society makes about what it values.</p>
+
+  <p class="narrative-text">Your key historical reading for this module is Tim Byrne's <a href="https://research.ebsco.com/linkprocessor/plink?id=863c3411-1d1a-3fba-b7b4-2383766ed848" target="_blank">"Rise of the Independents: The Rallying of Theatre in Melbourne"</a> (<em>Kill Your Darlings</em>, 2014). It provides a detailed account of how Melbourne's independent scene was actively built, and this module draws on his argument throughout. Byrne's essay is useful here because it insists that a theatre scene like this does not happen by accident. It has to be cultivated: through venues that give work a public identity, through institutions that sometimes share resources rather than hoard them, and through audiences willing to move across different scales of theatre-making. Ecology is a helpful word because it directs your attention to relationships, infrastructure, and circulation, not just to individual productions.</p>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- ═══════════════════════════════════════════ PART 2: TIMELINE ══════════════════════════════ -->
+<div class="narrative-section reveal">
+  <div class="section-label">Part Two — A Brief History</div>
+  <h2 class="section-heading">Touchstones</h2>
+  <div class="section-divider"></div>
+
+  <p class="narrative-text">Melbourne's theatre history is long, but a few key moments shaped the scene you'll encounter today. This isn't a comprehensive history; it's a set of markers to orient you.</p>
+
+  <div class="era-timeline">
+
+    <div class="era-item reveal">
+      <div class="era-date">1967</div>
+      <div class="era-title">La Mama opens in Carlton</div>
+      <div class="era-desc">Betty Burstall opens a tiny theatre in a converted printing works at 205 Faraday Street, inspired by New York's La MaMa Experimental Theatre Club. It becomes the birthplace of Australian independent theatre, a place where emerging playwrights, directors, and actors can develop work outside the mainstream. For nearly sixty years, it has operated on an artist-first model: the venue gives artists a minimum of 80% of the box office while providing technical, ticketing, marketing, and front-of-house support.</div>
+    </div>
+
+    <div class="era-item reveal">
+      <div class="era-date">Late 1960s–70s</div>
+      <div class="era-title">The Australian Performing Group and the Pram Factory</div>
+      <div class="era-desc">A collective of actors, writers, and directors takes over a disused factory in Drummond Street, Carlton, and creates the Australian Performing Group (APG). For the first time, Australian playwrights — David Williamson, Jack Hibberd, John Romeril, Barry Oakley — write unapologetically local work for local stages, breaking from the tradition of importing British and American plays. The Pram Factory closes in 1981, but its alumni reshape Australian theatre. La Mama and the Pram Factory together establish Carlton as the crucible of Melbourne's independent scene.</div>
+    </div>
+
+    <div class="era-item reveal">
+      <div class="era-date">1976</div>
+      <div class="era-title">Hoopla! and the company that becomes Malthouse</div>
+      <div class="era-desc">Carrillo Gantner, Graeme Blundell, and Garrie Hutchinson, the latter two drawing on their experience at the APG, found Hoopla! Theatre Foundation, aiming to bring experimental and nationalist ambitions to a broader audience. It becomes the Playbox Theatre Company in 1980, settles into a converted malthouse in Southbank in 1990, and is renamed Malthouse Theatre in 2004. From the start, the company prioritises new Australian work.</div>
+    </div>
+
+    <div class="era-item reveal">
+      <div class="era-date">1980s</div>
+      <div class="era-title">A wider ecology emerges</div>
+      <div class="era-desc">New companies with distinct identities appear across Melbourne. Anthill Theatre (1980–94), founded by French director Jean-Pierre Mignon in a South Melbourne temperance hall, stages European avant-garde work with an ethnically diverse ensemble, a deliberate counterpoint to the Anglo-Celtic mainstream. Melbourne Workers Theatre, co-founded by Patricia Cornelius, makes politically committed work rooted in working-class experience. Not Yet It's Difficult experiments with performance art and physical theatre. The scene becomes plural: there is no single independent aesthetic, but many.</div>
+    </div>
+
+    <div class="era-item reveal">
+      <div class="era-date">1991</div>
+      <div class="era-title">ILBIJERRI Theatre Company</div>
+      <div class="era-desc">Australia's longest-established First Peoples theatre company is formed in Naarm/Melbourne. ILBIJERRI, a Woiwurrung word meaning 'coming together for ceremony', creates work that is creatively controlled by Indigenous artists. Now based at Collingwood Yards under Artistic Director and co-CEO Andrea James (Yorta Yorta/Gunaikurnai), the company tours nationally and works across forms from community-based practice to major productions.</div>
+    </div>
+
+    <div class="era-item reveal">
+      <div class="era-date">1990s</div>
+      <div class="era-title">The limits of trickle-down culture</div>
+      <div class="era-desc">Byrne describes the 1990s as a harsher period for small and mid-level companies. Under a Kennett-era tent-pole logic, big successes were supposed to benefit the rest of the sector indirectly, but in practice many smaller companies remained precarious or disappeared. It is a reminder that independent theatre usually survives through direct support, not by waiting for resources to trickle down.</div>
+    </div>
+
+    <div class="era-item reveal">
+      <div class="era-date">1990s–2000s</div>
+      <div class="era-title">Venues become identities</div>
+      <div class="era-desc">Red Stitch Actors' Theatre moves from an industrial building on Inkerman Street to its permanent home on Chapel Street, St Kilda East. Theatre Works in St Kilda transforms under new curatorial leadership. fortyfivedownstairs opens deep underground in Flinders Lane. Each venue develops a distinctive personality, and a loyal audience that follows it. The relationship between a company and its physical space turns out to matter enormously.</div>
+    </div>
+
+    <div class="era-item reveal">
+      <div class="era-date">2018</div>
+      <div class="era-title">La Mama burns</div>
+      <div class="era-desc">An electrical fire destroys much of La Mama's heritage building. The roof collapses; the interior is gutted. A community-led fundraising campaign raises $3.5 million. The rebuilt theatre reopens in December 2021, just in time to face the next crisis.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- ═══════════════════════════════════════════ PART 3: THE ECOSYSTEM ═════════════════════════ -->
+<div class="narrative-section wide reveal">
+  <div class="section-label">Part Three — The Ecosystem Today</div>
+  <h2 class="section-heading">Who makes theatre in Melbourne?</h2>
+  <div class="section-divider"></div>
+
+  <p class="narrative-text">Melbourne's independent theatre ecology includes small-to-medium companies with their own venues, nomadic companies that perform wherever they can find a space, First Nations companies, and individual freelance artists who move between all of these. Here are some of the key players, the ones you'll encounter throughout this subject and, if you start going to the theatre in Melbourne, the ones whose work you're most likely to see.</p>
+
+  <p class="narrative-text">One of Byrne's most useful insights is that venues are not neutral containers. For independent work, a venue can operate as a public signal: it helps audiences know what they are entering, and it helps artists build recognition over time. In Melbourne, venue identity is part of the ecology itself.</p>
+
+  <div class="venue-grid">
+
+    <div class="venue-card reveal">
+      <div class="venue-name">La Mama Theatre</div>
+      <div class="venue-location">Faraday Street, Carlton</div>
+      <div class="venue-desc">The birthplace of Australian independent theatre. Around 50 seats. Survived the 2018 fire and a 2025 pause in public programming. In 2026 it returns with a revitalised program structure. If you see one independent venue while you're in Melbourne, make it this one.</div>
+      <span class="venue-tag independent">Independent</span>
+    </div>
+
+    <div class="venue-card reveal">
+      <div class="venue-name">Red Stitch Actors' Theatre</div>
+      <div class="venue-location">Chapel Street, St Kilda East</div>
+      <div class="venue-desc">An ensemble-based company with its own intimate venue. Known for contemporary international plays and strong ensemble acting. Their 2026 season features the landmark "Doll Trilogy", Ray Lawler's three plays staged together.</div>
+      <span class="venue-tag independent">Independent</span>
+    </div>
+
+    <div class="venue-card reveal">
+      <div class="venue-name">ILBIJERRI Theatre Company</div>
+      <div class="venue-location">Collingwood Yards</div>
+      <div class="venue-desc">Australia's longest-established First Peoples theatre company. Creates work across genres, from community workshops to national tours, that is creatively controlled by Indigenous artists. A vital voice in Melbourne's ecology.</div>
+      <span class="venue-tag first-nations">First Nations</span>
+    </div>
+
+    <div class="venue-card reveal">
+      <div class="venue-name">Theatre Works</div>
+      <div class="venue-location">Acland Street, St Kilda</div>
+      <div class="venue-desc">An independent company and venue for contemporary performance in St Kilda's historic Parish Hall. Byrne's essay captures an earlier moment in its transformation from hire venue to destination theatre. It remains an important home for new writing, experimentation, and independent risk-taking.</div>
+      <span class="venue-tag independent">Independent</span>
+    </div>
+
+    <div class="venue-card reveal">
+      <div class="venue-name">fortyfivedownstairs</div>
+      <div class="venue-location">Flinders Lane, CBD</div>
+      <div class="venue-desc">A long-running not-for-profit theatre and gallery in the CBD. Byrne treats it as more than a room for hire: a venue with its own atmosphere, memory, and curatorial identity. It continues to support independent theatre, music, and visual art.</div>
+      <span class="venue-tag independent">Independent</span>
+    </div>
+
+    <div class="venue-card reveal">
+      <div class="venue-name">Arts House</div>
+      <div class="venue-location">North Melbourne Town Hall</div>
+      <div class="venue-desc">City of Melbourne's contemporary performance space, based at North Melbourne Town Hall and working across other sites including Meat Market. Focuses on experimental, cross-disciplinary work, community co-creation, and access-led practice.</div>
+      <span class="venue-tag independent">Independent</span>
+    </div>
+
+    <div class="venue-card reveal">
+      <div class="venue-name">Darebin Arts / Northcote Town Hall</div>
+      <div class="venue-location">High Street, Northcote</div>
+      <div class="venue-desc">A local government arts centre that hosts independent theatre, dance, and music. An important venue for companies from Melbourne's north, and a regular home for Melbourne Fringe Festival events.</div>
+      <span class="venue-tag independent">Independent</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- ═══════════════════════════════════════════ PART 4: THE CRISIS ════════════════════════════ -->
+<div class="narrative-section reveal">
+  <div class="section-label">Part Four — The Crisis</div>
+  <h2 class="section-heading">What happens when the lights go out</h2>
+  <div class="section-divider"></div>
+
+  <p class="narrative-text">In March 2020, every theatre in Melbourne went dark. The COVID-19 pandemic shut down live performance overnight, and Melbourne, which endured one of the world's longest cumulative lockdowns, was hit especially hard. By the time venues began reopening, the damage was deep.</p>
+
+  <p class="narrative-text">In 2020, industry estimates forecast that 79,000 full-time-equivalent jobs would be lost across Australia's live entertainment industry. The ABS noted that 53% of arts and recreation businesses had ceased trading. But the numbers don't capture what it felt like. Director Gary Abrahams described a depression that went beyond sadness, an inability to feel excitement or positivity. Director Stephen Nicolazzo watched friends leave the industry entirely. Lighting designers, stage managers, production managers, the skilled technical workers who actually make shows happen, took jobs in other industries and didn't come back.</p>
+
+  <p class="narrative-text">The major companies survived, though not without significant government support. But the independent sector, the freelancers, the small companies, the artists who work on short contracts and move between gigs, had almost no safety net. Many workers fell through the gaps of support schemes, and many left the industry for good. The people who make independent theatre are overwhelmingly casual and self-employed; when the work stopped, there was very little underneath them.</p>
+
+  <p class="narrative-text">Read John Bailey's account of what the pandemic did to Melbourne's theatre workers: <a href="https://www.theage.com.au/culture/theatre/exit-stage-left-why-our-battered-theatre-scene-needs-help-20220318-p5a5ww.html" target="_blank">"Exit, stage left: why our battered theatre scene needs help"</a> (<em>The Age</em>, March 2022). It remains the most vivid account of the human cost.</p>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- ═══════════════════════════════════════════ PART 5: FUNDING ═══════════════════════════════ -->
+<div class="narrative-section reveal">
+  <div class="section-label">Part Five — Follow the Money</div>
+  <h2 class="section-heading">How Melbourne theatre is funded, and what happens when funding disappears</h2>
+  <div class="section-divider"></div>
+
+  <p class="narrative-text">If you want to understand why some theatre companies thrive and others vanish, follow the money. Australian theatre is funded through a layered system: the federal government (through Creative Australia, formerly the Australia Council), state governments (in Victoria, through Creative Victoria), and local councils (in Melbourne, through the City of Melbourne's arts grants). Large companies receive substantial, ongoing support from multiple levels. Small independents might receive one source of funding, or none, and the loss of a single grant can be existential.</p>
+
+  <p class="narrative-text">Byrne's historical account helps sharpen this point. Looking back on the 1990s, he suggests that smaller companies were not protected by a general prosperity at the top of the sector. One of the lessons of Melbourne theatre ecology is that independent work survives when support is directed towards it deliberately, not when it is assumed to benefit indirectly.</p>
+
+  <p class="narrative-text">In 2023, the federal government released <em>Revive</em>, Australia's first national cultural policy in a decade, backed by $286 million. It established Creative Australia and promised to put artists at the centre of cultural life. But the reality on the ground has been more complicated.</p>
+
+  <p class="narrative-text">In late 2023, La Mama Theatre, 57 years old and freshly rebuilt after fire, learned it had been unsuccessful in its application for Creative Australia's four-year organisational funding for 2025 to 2028. Without that recurrent support, its existing operating model was no longer viable, and it announced a pause in public programming for 2025 while it restructured.</p>
+
+  <div class="pull-quote reveal">
+    <p>Not securing four-year funding from Creative Australia was first met with disappointment and fear, but we are now choosing to grasp this moment as an opportunity to implement sustainable and necessary organisational change.</p>
+    <cite>— La Mama Committee of Management, 2024</cite>
+  </div>
+
+  <p class="narrative-text">Read <a href="https://www.stagewhispers.com.au/articles/197/message-la-mama-regarding-2025" target="_blank">La Mama's own statement about its future</a>. It's short, it's clear, and it shows you exactly how a theatre's funding model works and what happens when one piece of it falls away.</p>
+
+  <p class="narrative-text">The story then became more complicated. In late 2024, Creative Australia included La Mama in a separate two-year pilot investment program for 2025 and 2026. In December 2025, Creative Victoria also awarded La Mama funding of $225,000 in the 2026 to 2029 Creative Enterprises round. That does not erase the crisis, but it does show how unstable and piecemeal funding can be for small and medium organisations.</p>
+
+  <p class="narrative-text">The Creative Enterprises Program does not fund only theatre. It is the Victorian Government's main investment vehicle for the state's entire small-to-medium arts sector, covering visual arts, literature, music, dance, and community arts alongside performance. So when its funding pool contracts, the effects ripple well beyond the theatre ecology this module focuses on. Andy Miller, a former Co-CEO of Multicultural Arts Victoria and senior arts officer with Creative Victoria, has calculated that the CEP pool shrank from $21.2 million in the 2022–25 round to $17.9 million for 2026–29, shared among fewer organisations (down from 93 to 81 recipients). In the same round, organisations across several sectors lost multi-year support entirely, including Writers Victoria, the Wheeler Centre, and Australian Print Workshop. The sector has responded with deep anxiety about what this contraction means for Victoria's broader creative ecology, and for the theatre companies, venues, and independent artists who sit within it. Read Miller's analysis: <a href="https://www.artshub.com.au/news/opinions-analysis/creative-victoria-backing-or-backing-away-2837611/" target="_blank">"Creative Victoria: backing or backing away?"</a> (<em>ArtsHub</em>, January 2026).</p>
+
+  <div class="data-callout reveal">
+    <div class="data-label">The numbers behind Melbourne's theatre</div>
+    <div class="data-grid">
+      <div class="data-item">
+        <div class="data-number">$23,200</div>
+        <div class="data-desc">Average annual income from creative work for a professional Australian artist (2024)</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number">80/20</div>
+        <div class="data-desc">La Mama's artist-first model: a minimum of 80% of box office to the artists</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number">57 yrs</div>
+        <div class="data-desc">La Mama's age when it lost four-year federal funding and paused public programming</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number">$17.9m</div>
+        <div class="data-desc">Creative Enterprises Program funding pool for 2026–29, down from $21.2m in the previous round (Andy Miller, ArtsHub)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- ═══════════════════════════════════════════ PART 6: RENEWAL ═══════════════════════════════ -->
+<div class="narrative-section reveal">
+  <div class="section-label">Part Six — Still Here</div>
+  <h2 class="section-heading">Renewal, access, and who gets to be in the room</h2>
+  <div class="section-divider"></div>
+
+  <p class="narrative-text">If this story were only about crisis, it would be incomplete. Melbourne's theatre scene is also a story about adaptation, and some of the most interesting developments are happening right now, in how companies think about who their audiences are, what it costs to see a show, and who gets to participate in making theatre.</p>
+
+  <p class="narrative-text"><strong>Ticket prices.</strong> In October 2024, Malthouse Theatre announced it would significantly lower prices for its 2025 season: standard tickets $50–$85, concessions from $20, and a first-ever 25% early bird discount bringing tickets as low as $38. Artistic Director Matthew Lutton explicitly linked the change to the cost-of-living crisis. These pricing structures are worth paying attention to; they tell you something about who theatre companies think their audience is, and who they're trying to reach. Byrne's essay shows that this is not a new problem: long before the current cost-of-living crisis, ticket price was already being framed as one of the biggest obstacles to audience movement across Melbourne's theatre ecology. Access, in other words, is economic as well as artistic. Read the <a href="https://www.timeout.com/melbourne/news/from-existential-horror-to-uplifting-joy-malthouse-reveals-its-2025-season-and-lowered-ticket-prices-100924" target="_blank">Time Out Melbourne report on Malthouse's pricing changes</a>.</p>
+
+  <p class="narrative-text"><strong>Accessibility.</strong> Arts House has pioneered an innovative approach to access, publishing aural and visual ratings for each event on a percentage scale, so audiences can judge in advance how accessible a show will be for them. Independent companies are increasingly offering relaxed performances (with adjusted sound and lighting for audiences with sensory needs), Auslan-interpreted shows, and audio description. These aren't add-ons; they're part of a broader rethinking across Melbourne's independent sector of what it means to make theatre genuinely open to everyone.</p>
+
+  <p class="narrative-text"><strong>First Nations theatre.</strong> ILBIJERRI Theatre Company, now under Artistic Director Andrea James (Yorta Yorta/Gunaikurnai), continues to create work that is creatively controlled by Indigenous artists, from community workshops and performances in prisons and remote communities to national touring productions. The YIRRAMBOI Festival, whose name means ‘tomorrow’ in the Woiwurrung and Boon Wurrung languages, has become a major platform for First Nations performance and visual art across Melbourne venues. These are not niche programs; they represent some of the most vital and distinctive theatre being made in this city.</p>
+
+  <p class="narrative-text"><strong>La Mama's return.</strong> Although its theatres were officially dark to the public in 2025, La Mama still hosted 80-plus developments and showings during its reset year. For 2026 it introduced a revitalised structure built around curated presentation, development pathways, and partnership-based programming. The La Mama story is not over.</p>
+
+  <div class="data-callout reveal">
+    <div class="data-label">Who's in Melbourne's arts audience? Audience Atlas Victoria, 2024</div>
+    <div class="data-grid">
+      <div class="data-item">
+        <div class="data-number">99%</div>
+        <div class="data-desc">of adult Victorians are in the market for arts and culture</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number">41%</div>
+        <div class="data-desc">report being less culturally active than before COVID</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number">$3.4bn</div>
+        <div class="data-desc">spent annually by Victorians on arts and culture</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number">Young & diverse</div>
+        <div class="data-desc">audiences are the most likely growth segment for future engagement</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="narrative-text">That last data point is worth sitting with. The people most likely to increase their engagement with arts and culture in Melbourne are young, culturally diverse audiences, people who, in many cases, look a lot like you. The question of who theatre is for is not abstract. It's about the choices being made, right now, by the companies and venues in this module.</p>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- ═══════════════════════════════════════════ READINGS ══════════════════════════════════════ -->
+<div class="narrative-section reveal">
+  <div class="section-label">Your Readings</div>
+  <h2 class="section-heading">This week's resources</h2>
+  <div class="section-divider"></div>
+
+  <p class="narrative-text">This module has five readings. Together they take you from the historical argument about how independent theatre was actively built in Melbourne (Byrne), through the COVID crisis (Bailey) and the funding landscape (La Mama's statement; Miller on state funding), to the question of audiences and access (Malthouse pricing). They are available online or through University library access.</p>
+
+  <div class="reading-card" onclick="toggleReading(this)">
+    <div class="reading-header">
+      <div class="reading-meta">
+        <div class="reading-source">The Age · March 2022</div>
+        <div class="reading-title">John Bailey, "Exit, stage left: why our battered theatre scene needs help"</div>
+      </div>
+      <span class="reading-arrow">▼</span>
+    </div>
+    <div class="reading-body">
+      <div class="reading-body-inner">
+        The most vivid account of what the pandemic did to Melbourne's theatre community. Bailey talks to directors, lighting designers, playwrights, and producers about job losses, depression, and the mass exodus of skilled workers from the industry. Essential context for understanding why Melbourne's theatre scene looks the way it does now.
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-card" onclick="toggleReading(this)">
+    <div class="reading-header">
+      <div class="reading-meta">
+        <div class="reading-source">Stage Whispers · 2024</div>
+        <div class="reading-title">"A Message from La Mama Regarding 2025"</div>
+      </div>
+      <span class="reading-arrow">▼</span>
+    </div>
+    <div class="reading-body">
+      <div class="reading-body-inner">
+        A published version of La Mama's statement explaining why it ceased public performances for 2025. Short, plainly written, and useful for seeing how a small theatre describes its own funding crisis and temporary pause. A strong primary-source style reading. <a href="https://www.stagewhispers.com.au/articles/197/message-la-mama-regarding-2025" target="_blank">Read it here →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-card" onclick="toggleReading(this)">
+    <div class="reading-header">
+      <div class="reading-meta">
+        <div class="reading-source">ArtsHub · January 2026</div>
+        <div class="reading-title">Andy Miller, "Creative Victoria: backing or backing away?"</div>
+      </div>
+      <span class="reading-arrow">▼</span>
+    </div>
+    <div class="reading-body">
+      <div class="reading-body-inner">
+        A former senior arts officer with Creative Victoria analyses the 2026–29 Creative Enterprises Program round, showing how the funding pool has contracted and what that means for the organisations that depend on it. Useful for understanding the state-level funding picture and why the independent sector is so anxious about what comes next. Note: ArtsHub may require a membership to read the full article. <a href="https://www.artshub.com.au/news/opinions-analysis/creative-victoria-backing-or-backing-away-2837611/" target="_blank">Read it here →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-card" onclick="toggleReading(this)">
+    <div class="reading-header">
+      <div class="reading-meta">
+        <div class="reading-source">Kill Your Darlings · 2014</div>
+        <div class="reading-title">Tim Byrne, "Rise of the Independents: The Rallying of Theatre in Melbourne"</div>
+      </div>
+      <span class="reading-arrow">▼</span>
+    </div>
+    <div class="reading-body">
+      <div class="reading-body-inner">
+        A longer historical essay on Melbourne's independent theatre ecology. What makes it especially useful is the argument running through it: Melbourne's independent scene was actively rallied through venue culture, collaboration between large and small organisations, and the question of ticket-price access. Read it as a historical snapshot, not a current directory. Its value lies in the way it helps you think about how an ecology is built. <a href="https://research.ebsco.com/linkprocessor/plink?id=863c3411-1d1a-3fba-b7b4-2383766ed848" target="_blank">Read it via library access →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="reading-card" onclick="toggleReading(this)">
+    <div class="reading-header">
+      <div class="reading-meta">
+        <div class="reading-source">Time Out Melbourne · October 2024</div>
+        <div class="reading-title">"Malthouse reveals its 2025 season and new lowered ticket prices"</div>
+      </div>
+      <span class="reading-arrow">▼</span>
+    </div>
+    <div class="reading-body">
+      <div class="reading-body-inner">
+        A short report on Malthouse Theatre's decision to drop ticket prices significantly, with the artistic director linking it directly to the cost-of-living crisis. Raises the question: who has been excluded from going to the theatre, and what are companies doing about it? <a href="https://www.timeout.com/melbourne/news/from-existential-horror-to-uplifting-joy-malthouse-reveals-its-2025-season-and-lowered-ticket-prices-100924" target="_blank">Read it here →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════ FOOTER ════════════════════════════════════════ -->
+<footer>
+  <p>DRAM10026 · Inside Look at Melbourne Theatre Company · Module 5 · University of Melbourne · Semester 1, 2026</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Toggle reading cards
+  function toggleReading(card) {
+    card.classList.toggle('expanded');
+  }
+</script>
+
+</body>
+</html>
